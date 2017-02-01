@@ -151,7 +151,7 @@ public class HtmlGenerator {
     private void writeHtmlToFile(String title, String html) throws IOException {
         String adjustedTitle = title.replace(",", "").replace(" ", "-");
 
-        String fileLocation = "src/html/" + adjustedTitle + ".html";
+        String fileLocation = "src/serverClientInteraction/html/" + adjustedTitle + ".html";
 
         Path path = Paths.get(fileLocation);
         try (BufferedWriter writer = Files.newBufferedWriter(path, Charset.forName("utf-8"))) {
