@@ -284,7 +284,7 @@ public class HtmlGeneratorTest {
     @Test
     public void writeHtmlToFile() throws IOException {
 
-        String htmlFolder = "src/serverClientInteraction/html/";
+        String htmlFolder = "src/serverClientInteraction/texts/";
 
         String fileEnding = ".html";
 
