@@ -1,4 +1,4 @@
 .idea
 VarangianRus.iml
 out
-src/server/node_modules
+src/serverClientInteraction/node_modules
