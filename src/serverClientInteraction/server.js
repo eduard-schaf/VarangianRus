@@ -18,7 +18,6 @@ getTexts();
  * Called directly on server start.
  */
 function getTexts() {
-    console.log("getTexts: server reads preprocessed texts into DOM");
     const textsDirectory = "texts/";
     const textFiles = fs.readdirSync(textsDirectory);
     for(const text in textFiles) {
@@ -30,7 +29,6 @@ function getTexts() {
             textNames[name] = $("head title", parsedText).text();
         }
     }
-    console.log("getTexts: finished reading texts");
 }
 
 /**
