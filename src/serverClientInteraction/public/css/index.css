@@ -3,3 +3,7 @@ div button {
     border: none;
     padding: 10px;
 }
+
+paragraph {
+    display: block;
+}
