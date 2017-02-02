@@ -38,7 +38,7 @@ function getTexts() {
  * @param socket The socket object for the connected client.
  */
 exports.init = function(sio, socket) {
-    socket.emit("add text options", textNames);
+    socket.emit("init ui", textNames);
 
     socket.on("get text", function(textName){
         socket.emit("add text", texts[textName]);
