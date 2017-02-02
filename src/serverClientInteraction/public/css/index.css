@@ -1,0 +1,46 @@
+.menu {
+    padding: 5px;
+    font-size: 16px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    background: gray;
+}
+
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover, .btn:focus {
+    background-color: #3e8e41;
+}
+
+.separator {
+    color: white;
+}
+
+#text-title {
+    display: block;
+    font-size: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+paragraph {
+    display: block;
+    text-align: center;
+}
+
+paragraph title{
+    display: block;
+    font-size: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    text-align: center;
+}

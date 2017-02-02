@@ -44,7 +44,7 @@ public class HtmlGeneratorTest {
     public void getTitle() {
         String expected = "The Primary Chronicle, Codex Laurentianus";
 
-        String result = doc.select("head title").text();
+        String result = doc.select("#text-title").text();
 
         assertEquals(
                 "Should match the title",
@@ -172,11 +172,11 @@ public class HtmlGeneratorTest {
     public void getFirstParagraphFirstSentenceFirstToken() {
         Element expected = new Element("token")
                 .attr("id", "1711536")
-                .attr("lemma", "въ")
-                .attr("part-of-speech", "R-")
-                .attr("morphology", "---------n")
-                .attr("head-id", "1711542")
-                .attr("relation", "adv")
+                .attr("data-lemma", "въ")
+                .attr("data-part-of-speech", "R-")
+                .attr("data-morphology", "---------n")
+                .attr("data-head-id", "1711542")
+                .attr("data-relation", "adv")
                 .text("въ");
 
         Element result = doc
@@ -198,9 +198,9 @@ public class HtmlGeneratorTest {
     public void getFirstParagraphFirstSentenceLastToken() {
         Element expected = new Element("token")
                 .attr("id", "1922320")
-                .attr("empty-token-sort", "C")
-                .attr("head-id", "1711537")
-                .attr("relation", "atr");
+                .attr("data-empty-token-sort", "C")
+                .attr("data-head-id", "1711537")
+                .attr("data-relation", "atr");
 
         Element result = doc
                 .select("paragraph")
@@ -243,12 +243,12 @@ public class HtmlGeneratorTest {
         String slashTag = "slash";
 
         Element slash1 = new Element(slashTag)
-                .attr("target-id", "1711631")
-                .attr("relation", "sub");
+                .attr("data-target-id", "1711631")
+                .attr("data-relation", "sub");
 
         Element slash2 = new Element(slashTag)
-                .attr("target-id", "1711632")
-                .attr("relation", "aux");
+                .attr("data-target-id", "1711632")
+                .attr("data-relation", "aux");
 
         String expected =
                 slash1.toString() + "\n" +
@@ -284,7 +284,7 @@ public class HtmlGeneratorTest {
     @Test
     public void writeHtmlToFile() throws IOException {
 
-        String htmlFolder = "src/html/";
+        String htmlFolder = "src/serverClientInteraction/texts/";
 
         String fileEnding = ".html";
 

@@ -39,24 +39,17 @@ public class HtmlGenerator {
     public String convertTextToHtml() throws IOException{
         String title = text.getTitle();
 
-        String html =
-                "<html>" +
-                    "<head>" +
-                        "<title>" +
-                            title +
-                        "</title>" +
-                    "</head>" +
-                    "<body>" +
-                    "</body>" +
-                "</html>";
+        String titleHtml = "<title id='text-title'>" + title + "</title>";
 
-        Document doc = Jsoup.parse(html);
+        Document doc = Jsoup.parseBodyFragment(titleHtml);
 
         doc.outputSettings(doc.outputSettings().prettyPrint(false));
 
-        addParagraphs(doc.select("body").first());
+        Element body = doc.body();
 
-        String generatedHtml = doc.html();
+        addParagraphs(body);
+
+        String generatedHtml = body.html();
 
         writeHtmlToFile(title, generatedHtml);
 
@@ -112,14 +105,17 @@ public class HtmlGenerator {
             Element tokenElement = sentenceElment.appendElement("token");
 
             for(Map.Entry<String, String> tokenEntry: token.getAttributes().entrySet()){
-                tokenElement.attr(tokenEntry.getKey(), tokenEntry.getValue());
+                String key = "data-" + tokenEntry.getKey();
+                key = key.replace("data-id", "id");
+
+                tokenElement.attr(key, tokenEntry.getValue());
             }
 
-            tokenElement.text(tokenElement.attr("form"));
-            tokenElement.removeAttr("form");
+            tokenElement.text(tokenElement.attr("data-form"));
+            tokenElement.removeAttr("data-form");
 
-            sentenceElment.append(tokenElement.attr("presentation-after"));
-            tokenElement.removeAttr("presentation-after");
+            sentenceElment.append(tokenElement.attr("data-presentation-after"));
+            tokenElement.removeAttr("data-presentation-after");
 
             addSlashes(tokenElement, token.getSlashList());
         }
@@ -136,8 +132,8 @@ public class HtmlGenerator {
         for(Slash slash: slashList){
             tokenElement
                     .appendElement("slash")
-                    .attr("target-id", slash.getTargetId())
-                    .attr("relation", slash.getRelation());
+                    .attr("data-target-id", slash.getTargetId())
+                    .attr("data-relation", slash.getRelation());
         }
     }
 
@@ -151,7 +147,7 @@ public class HtmlGenerator {
     private void writeHtmlToFile(String title, String html) throws IOException {
         String adjustedTitle = title.replace(",", "").replace(" ", "-");
 
-        String fileLocation = "src/html/" + adjustedTitle + ".html";
+        String fileLocation = "src/serverClientInteraction/texts/" + adjustedTitle + ".html";
 
         Path path = Paths.get(fileLocation);
         try (BufferedWriter writer = Files.newBufferedWriter(path, Charset.forName("utf-8"))) {
