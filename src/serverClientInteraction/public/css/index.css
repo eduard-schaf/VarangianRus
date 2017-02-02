@@ -4,6 +4,23 @@ div button {
     padding: 10px;
 }
 
+#text-title {
+    display: block;
+    font-size: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
 paragraph {
     display: block;
+    text-align: center;
+}
+
+paragraph title{
+    display: block;
+    font-size: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    text-align: center;
 }
