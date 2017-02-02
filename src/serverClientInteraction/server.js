@@ -26,7 +26,7 @@ function getTexts() {
             const parsedText = fs.readFileSync(textsDirectory + filename, "utf8");
             const name = filename.replace(".html", "");
             texts[name] = parsedText;
-            textNames[name] = $("head title", parsedText).text();
+            textNames[name] = $("#text-title", parsedText).text();
         }
     }
 }

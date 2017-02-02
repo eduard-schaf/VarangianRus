@@ -44,7 +44,7 @@ public class HtmlGeneratorTest {
     public void getTitle() {
         String expected = "The Primary Chronicle, Codex Laurentianus";
 
-        String result = doc.select("head title").text();
+        String result = doc.select("#text-title").text();
 
         assertEquals(
                 "Should match the title",

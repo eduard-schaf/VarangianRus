@@ -39,24 +39,17 @@ public class HtmlGenerator {
     public String convertTextToHtml() throws IOException{
         String title = text.getTitle();
 
-        String html =
-                "<html>" +
-                    "<head>" +
-                        "<title>" +
-                            title +
-                        "</title>" +
-                    "</head>" +
-                    "<body>" +
-                    "</body>" +
-                "</html>";
+        String titleHtml = "<title id='text-title'>" + title + "</title>";
 
-        Document doc = Jsoup.parse(html);
+        Document doc = Jsoup.parseBodyFragment(titleHtml);
 
         doc.outputSettings(doc.outputSettings().prettyPrint(false));
 
-        addParagraphs(doc.select("body").first());
+        Element body = doc.body();
 
-        String generatedHtml = doc.html();
+        addParagraphs(body);
+
+        String generatedHtml = body.html();
 
         writeHtmlToFile(title, generatedHtml);
 
