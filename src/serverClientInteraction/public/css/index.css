@@ -1,7 +1,27 @@
-div button {
-    background: rgb(130, 224, 255);
+.menu {
+    padding: 5px;
+    font-size: 16px;
+    color: white;
     border: none;
-    padding: 10px;
+    cursor: pointer;
+    background: gray;
+}
+
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover, .btn:focus {
+    background-color: #3e8e41;
+}
+
+.separator {
+    color: white;
 }
 
 #text-title {
