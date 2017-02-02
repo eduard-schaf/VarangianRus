@@ -4,6 +4,10 @@ $("#enhance").on("click", function () {
     socket.emit("get text", $("#text-select").val());
 });
 
+$("#text-select").on("change", function () {
+    socket.emit("get text", $("#text-select").val());
+});
+
 socket.on("add text options", function (textNames) {
     const $TextSelectBox = $("#text-select");
 
