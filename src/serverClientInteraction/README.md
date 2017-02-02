@@ -25,7 +25,12 @@ the following url:
 `http://localhost:8080/` or `http://your.ip.address:8080`
 
 The second variant is more reliable, as you can access it from any
-laptop/pc.
+laptop/pc. Consider this example:
+
+Lets say your ip address is the following: `192.168.0.11`.
+
+When you start the server from your machine, anyone can access
+the ui via `http://192.168.0.11:8080/`.
 
 If you change the code you have to restart the server via pressing `ctrl+c`
 and using the same command for starting the server above.
