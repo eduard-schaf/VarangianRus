@@ -34,13 +34,13 @@ const UI = {
         const activity = $("#activity-menu").val();
 
         if("verbs-aorist-tense" === topic){
-            UI.addHits();
+            UI.markHits();
 
             UI[activity].run(topic);
         }
     },
 
-    addHits: function () {
+    markHits: function () {
         $("[data-part-of-speech='V-']").each(function () {
             const $Token =$(this);
             const morphology = $Token.data("morphology");
