@@ -33,7 +33,7 @@ const UI = {
     /**
      * Add the text to the html page.
      *
-     * @param {string} text the text with all data
+     * @param {object} text the text with all data
      */
     addText: function (text) {
         const $TextContent = $("#text-content");

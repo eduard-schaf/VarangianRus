@@ -1,9 +1,9 @@
 //file system tools
 const fs = require("fs");
 //jquery to parse HTML
-var jquery = require("jquery");
+const jquery = require("jquery");
 //create server side HTML so we can use jquery
-var cheerio = require("cheerio"),
+const cheerio = require("cheerio"),
     $ = cheerio.load("<h2 class='title'>Server Side</h2>");
 $.html();
 
@@ -32,7 +32,7 @@ function getTexts() {
 }
 
 /**
- * This function is called by index.js to initialize a new game instance.
+ * This function is called by index.js to initialize a new instance.
  *
  * @param sio The Socket.IO library
  * @param socket The socket object for the connected client.
