@@ -8,13 +8,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.junit.Before;
 import org.junit.Test;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -29,8 +24,8 @@ public class HtmlGeneratorTest {
     private Document doc;
 
     @Before
-    public void setup() throws IOException, SAXException, ParserConfigurationException {
-        Text text = DomParser.createText();
+    public void setup() throws Exception {
+        Text text = DomParser.createTextFromXml("varangians.xml");
 
         HtmlGenerator htmlGenerator = new HtmlGenerator(text);
 
@@ -193,7 +188,7 @@ public class HtmlGeneratorTest {
                 .attr("data-relation", "aux");
 
         String expected =
-                slash1.toString() + "\n" +
+                slash1.toString() + System.lineSeparator() +
                 slash2.toString();
 
         final List<Element> tokenListHavingTokenWithSlashes = doc
@@ -213,7 +208,7 @@ public class HtmlGeneratorTest {
                 .get(0)
                 .stream()
                 .map(Element::toString)
-                .collect(Collectors.joining("\n"));
+                .collect(Collectors.joining(System.lineSeparator()));
 
         assertEquals(
                 "Should have the matching slash list for this token",
@@ -223,12 +218,32 @@ public class HtmlGeneratorTest {
     }
 
     @Test
-    public void writeHtmlToFile() throws IOException {
+    public void writeHtmlToFile() throws Exception {
+        Path dataFolder = Paths.get("src/data/");
 
         String htmlFolder = "src/serverClientInteraction/texts/";
 
         String fileEnding = ".html";
-        String expected = htmlFolder + "The-Varangians-are-called-The-Primary-Chronicle-Codex-Laurentianus" + fileEnding;
+
+        StringBuilder expectedBuilder = new StringBuilder();
+
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dataFolder, "*.{xml}")) {
+            for (Path entry: stream) {
+                Text text = DomParser.createTextFromXml(entry.getFileName().toString());
+
+                HtmlGenerator htmlGenerator = new HtmlGenerator(text);
+
+                htmlGenerator.convertTextToHtml();
+
+                expectedBuilder
+                        .append(htmlFolder)
+                        .append(htmlGenerator.getFileName())
+                        .append(fileEnding)
+                        .append(System.lineSeparator());
+            }
+        }
+
+        String expected = expectedBuilder.toString().trim();
 
         String result;
 
@@ -239,7 +254,7 @@ public class HtmlGeneratorTest {
             result = stream
                     .sorted()
                     .map(String::valueOf)
-                    .collect(Collectors.joining("\n"));
+                    .collect(Collectors.joining(System.lineSeparator()));
         }
 
         assertEquals(
