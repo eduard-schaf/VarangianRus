@@ -3,10 +3,7 @@ package test;
 import main.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,8 +19,8 @@ public class DomParserTest {
     private Text text;
 
     @Before
-    public void setup() throws IOException, SAXException, ParserConfigurationException {
-        text = DomParser.createText();
+    public void setup() throws Exception {
+        text = DomParser.createTextFromXml("varangians.xml");
     }
 
     @Test

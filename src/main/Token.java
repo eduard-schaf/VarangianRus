@@ -85,9 +85,9 @@ public class Token {
             String slashListString = slashList
                     .stream()
                     .map(Slash::toString)
-                    .collect(Collectors.joining("\n"));
+                    .collect(Collectors.joining(System.lineSeparator()));
 
-            result = result + "\n" + slashListString;
+            result = result + System.lineSeparator() + slashListString;
 
         }
 
