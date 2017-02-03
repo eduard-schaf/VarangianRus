@@ -1,3 +1,19 @@
 .color-verbs-aorist-tense {
     color: orange;
 }
+
+.click-style-pointer {
+    cursor: pointer;
+}
+
+.click-style-correct {
+    color: green;
+    font-weight: bold;
+    cursor: text;
+}
+
+.click-style-incorrect {
+    color: red;
+    font-weight: bold;
+    cursor: text;
+}
