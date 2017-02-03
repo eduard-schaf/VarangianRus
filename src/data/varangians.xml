@@ -164,7 +164,7 @@
     </information-statuses>
   </annotation>
   <source id="lav" language="orv">
-    <title>The Primary Chronicle, Codex Laurentianus</title>
+    <title>The Varangians are called, The Primary Chronicle, Codex Laurentianus</title>
     <citation-part>Lav.</citation-part>
     <annotator>Rebecka Lindberg (3918 sentences), Katie Sykes (2904 sentences), Marek Majer (189 sentences), Aleksandrs Berdicevskis (117 sentences), Mirjam Zumstein (101 sentences), Hanne Eckhoff (29 sentences), Franziska Maag (20 sentences), Jonathan Walker (1 sentence), and Lena Borise (1 sentence)</annotator>
     <reviewer>Katie Sykes (3963 sentences), Rebecka Lindberg (2700 sentences), Hanne Eckhoff (583 sentences), and Marek Majer (19 sentences)</reviewer>
@@ -172,7 +172,6 @@
     <electronic-text-title>The e-PVL</electronic-text-title>
     <electronic-text-original-url>http://pvl.obdurodon.org/</electronic-text-original-url>
     <div>
-      <title>6367: Tribute to the Varangians</title>
       <sentence id="123745" status="reviewed">
         <token id="1711536" form="въ" citation-part="19.7" lemma="въ" part-of-speech="R-" morphology="---------n" head-id="1711542" relation="adv" presentation-after=" " foreign-ids="7r"/>
         <token id="1711537" form="лѣт" citation-part="19.7" lemma="лѣто" part-of-speech="Nb" morphology="-s---na--i" head-id="1711536" relation="obl" presentation-after=" " foreign-ids="7r"/>
@@ -220,9 +219,6 @@
         <token id="1711574" form="ѿ" citation-part="19.11" lemma="отъ" part-of-speech="R-" morphology="---------n" head-id="1711569" relation="obl" presentation-after=" " foreign-ids="7r"/>
         <token id="1711575" form="дыма" citation-part="19.11" lemma="дымъ" part-of-speech="Nb" morphology="-s---mg--i" head-id="1711574" relation="obl" presentation-after="·:· " foreign-ids="7r"/>
       </sentence>
-    </div>
-    <div>
-      <title>6368</title>
       <sentence id="123753" status="reviewed">
         <token id="1711576" form="въ" citation-part="19.12" lemma="въ" part-of-speech="R-" morphology="---------n" head-id="1998113" relation="adv" presentation-after=" " foreign-ids="7r"/>
         <token id="1711577" form="лѣт" citation-part="19.12" lemma="лѣто" part-of-speech="Nb" morphology="-s---na--i" head-id="1711576" relation="obl" presentation-after=" " foreign-ids="7r"/>
@@ -233,9 +229,6 @@
         <token id="1998113" empty-token-sort="V" relation="pred"/>
         <token id="1998114" empty-token-sort="C" head-id="1711577" relation="atr"/>
       </sentence>
-    </div>
-    <div>
-      <title>6369–6370: The Varangians come to rule the Land of the Rus</title>
       <sentence id="123754" status="reviewed">
         <token id="1711582" form="въ" citation-part="19.13" lemma="въ" part-of-speech="R-" morphology="---------n" head-id="1711588" relation="adv" presentation-after=" " foreign-ids="7r"/>
         <token id="1711583" form="лѣт" citation-part="19.13" lemma="лѣто" part-of-speech="Nb" morphology="-s---na--i" head-id="1711582" relation="obl" presentation-after=" " foreign-ids="7r"/>

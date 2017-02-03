@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -42,7 +41,7 @@ public class HtmlGeneratorTest {
 
     @Test
     public void getTitle() {
-        String expected = "The Primary Chronicle, Codex Laurentianus";
+        String expected = "The Varangians are called, The Primary Chronicle, Codex Laurentianus";
 
         String result = doc.select("#text-title").text();
 
@@ -54,115 +53,58 @@ public class HtmlGeneratorTest {
     }
 
     @Test
-    public void getParagraphs() {
-        int expected = 3;
+    public void getParagraph() {
+        int expected = 1;
 
         int result = doc.select("paragraph").size();
 
         assertEquals(
-                "Should have 3 paragraphs",
+                "Should have one paragraph",
                 expected,
                 result
         );
     }
 
     @Test
-    public void getParagraphIds() {
-        String expected =
-                "paragraph-1\n" +
-                "paragraph-2\n" +
-                "paragraph-3";
+    public void getParagraphSentenceListSize() {
+        int expected = 55;
+
+        final int result = doc
+                .select("paragraph")
+                .select("sentence").size();
+
+        assertEquals(
+                "Should have matching number of sentences of the paragraph",
+                expected,
+                result
+        );
+    }
+
+    @Test
+    public void getParagraphSentenceListFirstSentenceId() {
+        String expected = "123745";
 
         final String result = doc
                 .select("paragraph")
-                .stream()
-                .map(element -> element.attr("id"))
-                .collect(Collectors.joining("\n"));
+                .select("sentence").first().attr("id");
 
         assertEquals(
-                "Should have matching paragraph ids",
+                "Should have the matching first sentence id of the paragraph",
                 expected,
                 result
         );
     }
 
     @Test
-    public void getParagraphTitles() {
-        String expected =
-                "6367: Tribute to the Varangians\n" +
-                "6368\n" +
-                "6369–6370: The Varangians come to rule the Land of the Rus";
+    public void getParagraphSentenceListFirstSentenceTokenListSize() {
+        int expected = 23;
 
-        final String result = doc
-                .select("paragraph title")
-                .stream()
-                .map(Element::text)
-                .collect(Collectors.joining("\n"));
-
-        assertEquals(
-                "Should have matching paragraph titles",
-                expected,
-                result
-        );
-    }
-
-    @Test
-    public void getParagraphSentenceListSizes() {
-        List<Integer> expected = Arrays.asList(
-                3,
-                1,
-                51
-        );
-
-        final List<Integer> result = doc
+        final int result = doc
                 .select("paragraph")
-                .stream()
-                .map(paragraph -> paragraph.select("sentence").size())
-                .collect(Collectors.toList());
+                .select("sentence").first().select("token").size();
 
         assertEquals(
-                "Should have matching number of sentences of each paragraph",
-                expected,
-                result
-        );
-    }
-
-    @Test
-    public void getParagraphSentenceListFirstSentenceIds() {
-        String expected =
-                "123745\n" +
-                "123753\n" +
-                "123754";
-
-        final String result = doc
-                .select("paragraph")
-                .stream()
-                .map(paragraph -> paragraph.select("sentence").first().attr("id"))
-                .collect(Collectors.joining("\n"));
-
-        assertEquals(
-                "Should have the matching first sentence id of each paragraph",
-                expected,
-                result
-        );
-    }
-
-    @Test
-    public void getParagraphSentenceListFirstSentenceTokenListSizes() {
-        List<Integer> expected = Arrays.asList(
-                23,
-                8,
-                16
-        );
-
-        final List<Integer> result = doc
-                .select("paragraph")
-                .stream()
-                .map(paragraph -> paragraph.select("sentence").first().select("token").size())
-                .collect(Collectors.toList());
-
-        assertEquals(
-                "Should have the matching first sentence token list sizes of each paragraph",
+                "Should have the matching first sentence token list size of the paragraph",
                 expected,
                 result
         );
@@ -256,7 +198,6 @@ public class HtmlGeneratorTest {
 
         final List<Element> tokenListHavingTokenWithSlashes = doc
                 .select("paragraph")
-                .get(2)
                 .select("sentence")
                 .stream()
                 .filter(sentence -> "123761".equals(sentence.attr("id")))
@@ -287,8 +228,7 @@ public class HtmlGeneratorTest {
         String htmlFolder = "src/serverClientInteraction/texts/";
 
         String fileEnding = ".html";
-
-        String expected = htmlFolder + "The-Primary-Chronicle-Codex-Laurentianus" + fileEnding;
+        String expected = htmlFolder + "The-Varangians-are-called-The-Primary-Chronicle-Codex-Laurentianus" + fileEnding;
 
         String result;
 
