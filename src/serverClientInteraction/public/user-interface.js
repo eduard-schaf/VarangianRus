@@ -5,12 +5,10 @@ const UI = {
      * @param {object} textNames contains all text names
      */
     initTextMenuOptions: function (textNames) {
-        const $TextMenu = $("#text-menu");
-
         for (const textKey in textNames) {
             if (Object.prototype.hasOwnProperty.call(textNames, textKey)) {
                 const textName = textNames[textKey];
-                $TextMenu.append($("<option>").val(textKey).text(textName))
+                $("#text-menu").append($("<option>").val(textKey).text(textName))
             }
         }
     },
@@ -55,24 +53,37 @@ const UI = {
     enhance: function () {
         const topic = $("#topic-menu").val();
         const activity = $("#activity-menu").val();
+        const topicData = {};
+
+        UI.restore();
 
         if("verbs-aorist-tense" === topic){
-            UI.markHits();
 
-            UI[activity].run(topic);
+            topicData["part-of-speech"] = "V-";
+            topicData["feature"] = "a";
+            topicData["feature-position"] = 2;
+
+            UI.markHits(topicData);
+
+            UI[activity].run();
+
+            $("#restore").show();
         }
     },
 
     /**
      * Mark the relevant tokens with the class 'hit'.
+     *
+     * @param {object} topicData all data related to the selected topic
      */
-    markHits: function () {
-        $("[data-part-of-speech='V-']").each(function () {
-            const $Token =$(this);
+    markHits: function (topicData) {
+        $("[data-part-of-speech='" + topicData["part-of-speech"] + "']").each(function () {
+            const $Token = $(this);
             const morphology = $Token.data("morphology");
-            const tense = morphology.charAt(2);
+            const searchedFeature = topicData["feature"];
+            const actualFeature = morphology.charAt(topicData["feature-position"]);
 
-            if("a" === tense){
+            if(searchedFeature === actualFeature){
                 $Token.addClass("hit");
             }
         });
@@ -89,7 +100,13 @@ const UI = {
      * Initialize the restore button handler.
      */
     restore: function () {
-        $("token").removeAttr("class");
+        const $Token = $("token");
+
+        $Token.removeAttr("class");
+
+        // click
+        $Token.off("click");
+
         $("#restore").hide();
     },
 
