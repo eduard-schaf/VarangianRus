@@ -70,23 +70,13 @@ public class DomParser {
             if (paragraphNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element paragraphElement = (Element) paragraphNode;
 
-                String paragraphId = "paragraph-" + String.format("%d", i+1);
-                String paragraphTitle = paragraphElement
-                        .getElementsByTagName("title")
-                        .item(0)
-                        .getChildNodes()
-                        .item(0)
-                        .getNodeValue();
-
                 NodeList sentenceNodes = paragraphElement.getElementsByTagName("sentence");
 
                 Paragraph paragraph = new Paragraph();
-                paragraph.setId(paragraphId);
-                paragraph.setTitle(paragraphTitle);
 
                 addSentencesToParagraph(sentenceNodes, paragraph);
 
-                text.getParagraphList().add(paragraph);
+                text.setParagraph(paragraph);
             }
         }
     }
