@@ -47,7 +47,7 @@ public class HtmlGenerator {
 
         Element body = doc.body();
 
-        addParagraphs(body);
+        addParagraph(body);
 
         String generatedHtml = body.html();
 
@@ -57,23 +57,15 @@ public class HtmlGenerator {
     }
 
     /**
-     * Add paragraphs to the html using all information stored
+     * Add the paragraph to the html using all information stored
      * inside the {@link Paragraph} Object.
      *
      * @param body the element with the tag name "body"
      */
-    private void addParagraphs(Element body) {
-        for(Paragraph paragraph: text.getParagraphList()){
-            Element paragraphElement = body
-                    .appendElement("paragraph")
-                    .attr("id", paragraph.getId());
+    private void addParagraph(Element body) {
+        Element paragraphElement = body.appendElement("paragraph");
 
-            paragraphElement
-                    .appendElement("title")
-                    .text(paragraph.getTitle());
-
-            addSentences(paragraphElement, paragraph.getSentenceList());
-        }
+        addSentences(paragraphElement, text.getParagraph().getSentenceList());
     }
 
     /**
