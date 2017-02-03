@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Eduard Schaf
@@ -27,7 +28,7 @@ public class DomParserTest {
 
     @Test
     public void getTitle() {
-        String expected = "The Primary Chronicle, Codex Laurentianus";
+        String expected = "The Varangians are called, The Primary Chronicle, Codex Laurentianus";
 
         String result = text.getTitle();
 
@@ -39,115 +40,59 @@ public class DomParserTest {
     }
 
     @Test
-    public void getParagraphList() {
-        int expected = 3;
+    public void getParagraph() {
+        assertTrue(
+                "Should have a paragraph, as the sentence list is not empty",
+                !text.getParagraph().getSentenceList().isEmpty()
+        );
+    }
 
-        int result = text.getParagraphList().size();
+    @Test
+    public void getParagraphSentenceListSize() {
+        int expected = 55;
+
+        final int result = text
+                .getParagraph()
+                .getSentenceList()
+                .size();
 
         assertEquals(
-                "Should have 3 paragraphs",
+                "Should have matching number of sentences of the paragraph",
                 expected,
                 result
         );
     }
 
     @Test
-    public void getParagraphIds() {
-        String expected =
-                "paragraph-1\n" +
-                "paragraph-2\n" +
-                "paragraph-3";
+    public void getParagraphSentenceListFirstSentenceId() {
+        String expected = "123745";
 
         final String result = text
-                .getParagraphList()
-                .stream()
-                .map(Paragraph::getId)
-                .collect(Collectors.joining("\n"));
+                .getParagraph()
+                .getSentenceList()
+                .get(0)
+                .getId();
 
         assertEquals(
-                "Should have matching paragraph ids",
+                "Should have the matching first sentence id of the paragraph",
                 expected,
                 result
         );
     }
 
     @Test
-    public void getParagraphTitles() {
-        String expected =
-                "6367: Tribute to the Varangians\n" +
-                "6368\n" +
-                "6369–6370: The Varangians come to rule the Land of the Rus";
+    public void getParagraphSentenceListFirstSentenceTokenListSize() {
+        int expected = 23;
 
-        final String result = text
-                .getParagraphList()
-                .stream()
-                .map(Paragraph::getTitle)
-                .collect(Collectors.joining("\n"));
+        final int result = text
+                .getParagraph()
+                .getSentenceList()
+                .get(0)
+                .getTokenList()
+                .size();
 
         assertEquals(
-                "Should have matching paragraph titles",
-                expected,
-                result
-        );
-    }
-
-    @Test
-    public void getParagraphSentenceListSizes() {
-        List<Integer> expected = Arrays.asList(
-                3,
-                1,
-                51
-        );
-
-        final List<Integer> result = text
-                .getParagraphList()
-                .stream()
-                .map(paragraph -> paragraph.getSentenceList().size())
-                .collect(Collectors.toList());
-
-        assertEquals(
-                "Should have matching number of sentences of each paragraph",
-                expected,
-                result
-        );
-    }
-
-    @Test
-    public void getParagraphSentenceListFirstSentenceIds() {
-        String expected =
-                "123745\n" +
-                "123753\n" +
-                "123754";
-
-        final String result = text
-                .getParagraphList()
-                .stream()
-                .map(paragraph -> paragraph.getSentenceList().get(0).getId())
-                .collect(Collectors.joining("\n"));
-
-        assertEquals(
-                "Should have the matching first sentence id of each paragraph",
-                expected,
-                result
-        );
-    }
-
-    @Test
-    public void getParagraphSentenceListFirstSentenceTokenListSizes() {
-        List<Integer> expected = Arrays.asList(
-                23,
-                8,
-                16
-        );
-
-        final List<Integer> result = text
-                .getParagraphList()
-                .stream()
-                .map(paragraph -> paragraph.getSentenceList().get(0).getTokenList().size())
-                .collect(Collectors.toList());
-
-        assertEquals(
-                "Should have the matching first sentence token list sizes of each paragraph",
+                "Should have the matching first sentence token list size of the paragraph",
                 expected,
                 result
         );
@@ -166,8 +111,7 @@ public class DomParserTest {
                 .addAttribute("presentation-after", " ");
 
         Token result = text
-                .getParagraphList()
-                .get(0)
+                .getParagraph()
                 .getSentenceList()
                 .get(0)
                 .getTokenList()
@@ -189,8 +133,7 @@ public class DomParserTest {
                 .addAttribute("relation", "atr");
 
         List<Token> tokenList = text
-                .getParagraphList()
-                .get(0)
+                .getParagraph()
                 .getSentenceList()
                 .get(0)
                 .getTokenList();
@@ -215,7 +158,7 @@ public class DomParserTest {
         );
 
         final List<Token> tokenListHavingTokenWithSlashes = text
-                .getParagraphList().get(2)
+                .getParagraph()
                 .getSentenceList()
                 .stream()
                 .filter(sentence -> "123761".equals(sentence.getId()))
