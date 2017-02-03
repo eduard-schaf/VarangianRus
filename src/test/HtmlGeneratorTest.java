@@ -258,7 +258,7 @@ public class HtmlGeneratorTest {
         }
 
         assertEquals(
-                "Should have created the html file in the expected location",
+                "Should have created the html files in the expected location",
                 expected,
                 result
         );
