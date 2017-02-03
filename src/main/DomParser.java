@@ -25,19 +25,20 @@ public class DomParser {
     /**
      * Create a {@link Text} Object from the information inside the xml file.
      *
+     * @param fileName the name of the xml file
      * @return the {@link Text} object with all information in the xml file.
      * @throws ParserConfigurationException fired when a configuration error
      * occurred
      * @throws IOException fired when the file could not be found
      * @throws SAXException fired when a SAX error or warning occurred
      */
-    public static Text createText() throws ParserConfigurationException, IOException, SAXException {
+    public static Text createTextFromXml(String fileName) throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
 
         // Load the input XML document, parse it and return an instance of the
         // Document class.
-        Document document = builder.parse(new File("src/data/varangians.xml"));
+        Document document = builder.parse(new File("src/data/" + fileName));
 
         Element documentElement = document.getDocumentElement();
 
