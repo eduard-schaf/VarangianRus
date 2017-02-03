@@ -19,6 +19,7 @@ import java.util.Map;
  */
 public class HtmlGenerator {
     private Text text;
+    private String fileName;
 
     /**
      * The constructor of the {@link HtmlGenerator}.
@@ -27,6 +28,7 @@ public class HtmlGenerator {
      */
     public HtmlGenerator(Text text) {
         this.text = text;
+        this.fileName = "";
     }
 
     /**
@@ -137,13 +139,22 @@ public class HtmlGenerator {
      * @throws IOException fired when the file location does not exist
      */
     private void writeHtmlToFile(String title, String html) throws IOException {
-        String adjustedTitle = title.replace(",", "").replace(" ", "-");
+        fileName = title.replace(",", "").replace(" ", "-");
 
-        String fileLocation = "src/serverClientInteraction/texts/" + adjustedTitle + ".html";
+        String fileLocation = "src/serverClientInteraction/texts/" + fileName + ".html";
 
         Path path = Paths.get(fileLocation);
         try (BufferedWriter writer = Files.newBufferedWriter(path, Charset.forName("utf-8"))) {
             writer.write(html);
         }
+    }
+
+    /**
+     * Get the name of the generated html file.
+     *
+     * @return the file name
+     */
+    public String getFileName(){
+        return fileName;
     }
 }
