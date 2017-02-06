@@ -32,15 +32,6 @@
     text-align: center;
 }
 
-paragraph {
+chronicle-entry {
     display: block;
-    text-align: center;
-}
-
-paragraph title{
-    display: block;
-    font-size: 25px;
-    margin-top: 25px;
-    margin-bottom: 25px;
-    text-align: center;
 }

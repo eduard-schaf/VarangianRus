@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author Eduard Schaf
@@ -37,66 +36,102 @@ public class DomParserTest {
     }
 
     @Test
-    public void getParagraph() {
-        assertTrue(
-                "Should have a paragraph, as the sentence list is not empty",
-                !text.getParagraph().getSentenceList().isEmpty()
-        );
-    }
+    public void getChronicleEntryList() {
+        int expected = 3;
 
-    @Test
-    public void getParagraphSentenceListSize() {
-        int expected = 55;
-
-        final int result = text
-                .getParagraph()
-                .getSentenceList()
-                .size();
+        int result = text.getChronicleEntryList().size();
 
         assertEquals(
-                "Should have matching number of sentences of the paragraph",
+                "Should have 3 chronicle entries",
                 expected,
                 result
         );
     }
 
     @Test
-    public void getParagraphSentenceListFirstSentenceId() {
-        String expected = "123745";
+    public void getChronicleEntryIds() {
+        String expected =
+                "chronicle-entry-1\n" +
+                "chronicle-entry-2\n" +
+                "chronicle-entry-3";
 
         final String result = text
-                .getParagraph()
-                .getSentenceList()
-                .get(0)
-                .getId();
+                .getChronicleEntryList()
+                .stream()
+                .map(ChronicleEntry::getId)
+                .collect(Collectors.joining("\n"));
 
         assertEquals(
-                "Should have the matching first sentence id of the paragraph",
+                "Should have matching chronicle entry ids",
                 expected,
                 result
         );
     }
 
     @Test
-    public void getParagraphSentenceListFirstSentenceTokenListSize() {
-        int expected = 23;
+    public void getChronicleEntrySentenceListSizes() {
+        List<Integer> expected = Arrays.asList(
+                3,
+                1,
+                51
+        );
 
-        final int result = text
-                .getParagraph()
-                .getSentenceList()
-                .get(0)
-                .getTokenList()
-                .size();
+        final List<Integer> result = text
+                .getChronicleEntryList()
+                .stream()
+                .map(chronicleEntry -> chronicleEntry.getSentenceList().size())
+                .collect(Collectors.toList());
 
         assertEquals(
-                "Should have the matching first sentence token list size of the paragraph",
+                "Should have matching number of sentences for each chronicle entry",
                 expected,
                 result
         );
     }
 
     @Test
-    public void getFirstParagraphFirstSentenceFirstToken() {
+    public void getChronicleEntrySentenceListFirstSentenceIds() {
+        String expected =
+                "123745\n" +
+                "123753\n" +
+                "123754";
+
+        final String result = text
+                .getChronicleEntryList()
+                .stream()
+                .map(chronicleEntry -> chronicleEntry.getSentenceList().get(0).getId())
+                .collect(Collectors.joining("\n"));
+
+        assertEquals(
+                "Should have the matching first sentence id of each chronicle entry",
+                expected,
+                result
+        );
+    }
+
+    @Test
+    public void getChronicleEntrySentenceListFirstSentenceTokenListSizes() {
+        List<Integer> expected = Arrays.asList(
+                23,
+                8,
+                16
+        );
+
+        final List<Integer> result = text
+                .getChronicleEntryList()
+                .stream()
+                .map(chronicleEntry -> chronicleEntry.getSentenceList().get(0).getTokenList().size())
+                .collect(Collectors.toList());
+
+        assertEquals(
+                "Should have the matching first sentence token list sizes of each chronicle entry",
+                expected,
+                result
+        );
+    }
+
+    @Test
+    public void getFirstChronicleEntryFirstSentenceFirstToken() {
         Token expected = new Token()
                 .addAttribute("id", "1711536")
                 .addAttribute("form", "въ")
@@ -108,21 +143,22 @@ public class DomParserTest {
                 .addAttribute("presentation-after", " ");
 
         Token result = text
-                .getParagraph()
+                .getChronicleEntryList()
+                .get(0)
                 .getSentenceList()
                 .get(0)
                 .getTokenList()
                 .get(0);
 
         assertEquals(
-                "Should have the matching token in the first paragraph, first sentence, first token",
+                "Should have the matching token in the first chronicle entry, first sentence, first token",
                 expected,
                 result
         );
     }
 
     @Test
-    public void getFirstParagraphFirstSentenceLastToken() {
+    public void getFirstChronicleEntryFirstSentenceLastToken() {
         Token expected = new Token()
                 .addAttribute("id", "1922320")
                 .addAttribute("empty-token-sort", "C")
@@ -130,7 +166,8 @@ public class DomParserTest {
                 .addAttribute("relation", "atr");
 
         List<Token> tokenList = text
-                .getParagraph()
+                .getChronicleEntryList()
+                .get(0)
                 .getSentenceList()
                 .get(0)
                 .getTokenList();
@@ -138,7 +175,7 @@ public class DomParserTest {
         Token result = tokenList.get(tokenList.size() - 1);
 
         assertEquals(
-                "Should have the matching token in the first paragraph, first sentence, last token",
+                "Should have the matching token in the first chronicle entry, first sentence, last token",
                 expected,
                 result
         );
@@ -155,7 +192,7 @@ public class DomParserTest {
         );
 
         final List<Token> tokenListHavingTokenWithSlashes = text
-                .getParagraph()
+                .getChronicleEntryList().get(2)
                 .getSentenceList()
                 .stream()
                 .filter(sentence -> "123761".equals(sentence.getId()))

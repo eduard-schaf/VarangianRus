@@ -1,28 +1,27 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Eduard Schaf
  * @since 29.01.17
  */
 public class Text {
     private String title;
-    private Paragraph paragraph;
+    private List<ChronicleEntry> chronicleEntryList;
 
     public Text(String title) {
         this.title = title;
-        this.paragraph = new Paragraph();
-    }
-
-    public void setParagraph(Paragraph paragraph) {
-        this.paragraph = paragraph;
+        this.chronicleEntryList = new ArrayList<>();
     }
 
     public String getTitle() {
         return title;
     }
 
-    public Paragraph getParagraph() {
-        return paragraph;
+    public List<ChronicleEntry> getChronicleEntryList() {
+        return chronicleEntryList;
     }
 
     @Override
@@ -39,13 +38,13 @@ public class Text {
         if (title != null ? !title.equals(text.title) : text.title != null) {
             return false;
         }
-        return paragraph != null ? paragraph.equals(text.paragraph) : text.paragraph == null;
+        return chronicleEntryList != null ? chronicleEntryList.equals(text.chronicleEntryList) : text.chronicleEntryList == null;
     }
 
     @Override
     public int hashCode() {
         int result = title != null ? title.hashCode() : 0;
-        result = 31 * result + (paragraph != null ? paragraph.hashCode() : 0);
+        result = 31 * result + (chronicleEntryList != null ? chronicleEntryList.hashCode() : 0);
         return result;
     }
 
@@ -53,7 +52,7 @@ public class Text {
     public String toString() {
         return "Text{" +
                 "title='" + title + '\'' +
-                ", paragraph=" + paragraph +
+                ", chronicleEntryList=" + chronicleEntryList +
                 '}';
     }
 }
