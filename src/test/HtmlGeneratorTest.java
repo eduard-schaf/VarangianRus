@@ -150,6 +150,7 @@ public class HtmlGeneratorTest {
     public void getFirstChronicleEntryFirstSentenceFirstToken() {
         Element expected = new Element("token")
                 .attr("id", "1711536")
+                .attr("data-form", "въ")
                 .attr("data-lemma", "въ")
                 .attr("data-part-of-speech", "R-")
                 .attr("data-morphology", "---------n")
