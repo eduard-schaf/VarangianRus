@@ -1,0 +1,59 @@
+.color-style-verbs-aorist-tense {
+    color: orange;
+}
+
+.click-style-pointer {
+    cursor: pointer;
+}
+
+.click-style-correct {
+    color: green;
+    font-weight: bold;
+    cursor: text;
+}
+
+.click-style-incorrect {
+    color: red;
+    font-weight: bold;
+    cursor: text;
+}
+
+.cloze-style-input {
+    width: 50px;
+    font-size: 15px;
+    border: 1px solid grey;
+    font-weight: bold;
+}
+
+.cloze-style-baseform {
+    font-style: italic;
+}
+
+.style-hint {
+    margin-left: 2px;
+    margin-right: 2px;
+    vertical-align: middle;
+    cursor: pointer;
+    font-size: 90%;
+    color: grey;
+}
+
+.input-style-provided {
+    color: black;
+    cursor: text;
+    font-weight: bold;
+}
+
+.input-style-correct {
+    color: green;
+    cursor: text;
+    font-weight: bold;
+}
+
+.input-style-incorrect {
+    color: red;
+}
+
+.input-style-neutral {
+    color: black;
+}
