@@ -22,11 +22,11 @@ const server = require('http').createServer(app).listen(8080);
 // Create a Socket.IO server and attach it to the http server
 const io = require('socket.io').listen(server);
 
-app.get('/', function(req, res){
-    res.sendFile(__dirname + '/public/index.html');
+app.get('/', function(req, res) {
+  res.sendFile(__dirname + '/public/index.html');
 });
 
 // Listen for Socket.IO Connections. Once connected, start the game logic.
-io.sockets.on('connection', function (socket) {
-    serverFile.init(io, socket);
+io.sockets.on('connection', function(socket) {
+  serverFile.init(io, socket);
 });
