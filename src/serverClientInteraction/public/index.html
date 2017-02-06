@@ -2,7 +2,7 @@
 <html>
 <head>
     <link href="css/index.css" rel="stylesheet">
-    <link href="css/activity.css" rel="stylesheet">
+    <link href="css/activities.css" rel="stylesheet">
     <title>Varangians</title>
 </head>
 <body>
@@ -23,7 +23,7 @@
         <option id="activity-color" value="color">Color</option>
         <option id="activity-click" value="click">Click</option>
         <!--<option id="activity-mc" value="mc">Multiple Choice</option>-->
-        <!--<option id="activity-cloze" value="cloze">Practice</option>-->
+        <option id="activity-cloze" value="cloze">Practice</option>
     </select>
     <button id="enhance" class="btn">Enhance</button>
     <button id="restore" class="btn">Restore</button>
@@ -35,7 +35,11 @@
 <script src="lib/jquery-3.1.1.min.js"></script>
 <script src="user-interface.js"></script>
 <script src="server-message-handler.js"></script>
+<script src="data.js"></script>
+<script src="utils.js"></script>
+<script src="activities/activityHelper.js"></script>
 <script src="activities/color.js"></script>
 <script src="activities/click.js"></script>
+<script src="activities/cloze.js"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@ const fs = require("fs");
 const jquery = require("jquery");
 //create server side HTML so we can use jquery
 const cheerio = require("cheerio"),
-    $ = cheerio.load("<h2 class='title'>Server Side</h2>");
+  $ = cheerio.load("<h2 class='title'>Server Side</h2>");
 $.html();
 
 const texts = {};
@@ -18,17 +18,17 @@ getTexts();
  * Called directly on server start.
  */
 function getTexts() {
-    const textsDirectory = "texts/";
-    const textFiles = fs.readdirSync(textsDirectory);
-    for(const text in textFiles) {
-        if (Object.prototype.hasOwnProperty.call(textFiles, text)) {
-            const filename = textFiles[text];
-            const parsedText = fs.readFileSync(textsDirectory + filename, "utf8");
-            const name = filename.replace(".html", "");
-            texts[name] = parsedText;
-            textNames[name] = $("#text-title", parsedText).text();
-        }
+  const textsDirectory = "texts/";
+  const textFiles = fs.readdirSync(textsDirectory);
+  for(const text in textFiles) {
+    if(Object.prototype.hasOwnProperty.call(textFiles, text)) {
+      const filename = textFiles[text];
+      const parsedText = fs.readFileSync(textsDirectory + filename, "utf8");
+      const name = filename.replace(".html", "");
+      texts[name] = parsedText;
+      textNames[name] = $("#text-title", parsedText).text();
     }
+  }
 }
 
 /**
@@ -38,9 +38,9 @@ function getTexts() {
  * @param socket The socket object for the connected client.
  */
 exports.init = function(sio, socket) {
-    socket.emit("init ui", textNames);
+  socket.emit("init ui", textNames);
 
-    socket.on("get text", function(textName){
-        socket.emit("add text", texts[textName]);
-    });
+  socket.on("get text", function(textName) {
+    socket.emit("add text", texts[textName]);
+  });
 };

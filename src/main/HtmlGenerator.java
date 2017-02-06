@@ -110,7 +110,6 @@ public class HtmlGenerator {
             }
 
             tokenElement.text(tokenElement.attr("data-form"));
-            tokenElement.removeAttr("data-form");
 
             sentenceElement.append(tokenElement.attr("data-presentation-after"));
             tokenElement.removeAttr("data-presentation-after");
