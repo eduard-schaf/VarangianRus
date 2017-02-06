@@ -42,7 +42,7 @@ public class DomParser {
 
         Element documentElement = document.getDocumentElement();
 
-        NodeList paragraphNodes = documentElement.getElementsByTagName("div");
+        NodeList chronicleEntryNodes = documentElement.getElementsByTagName("div");
 
         String textTitle = documentElement
                 .getElementsByTagName("title")
@@ -53,43 +53,46 @@ public class DomParser {
 
         Text text = new Text(textTitle);
 
-        addParagraphsToText(paragraphNodes, text);
+        addChronicleEntriesToText(chronicleEntryNodes, text);
         
         return text;
     }
 
     /**
-     * Add all paragraph related information from the xml file to the
+     * Add all chronicle entry related information from the xml file to the
      * {@link Text} Object.
      *
-     * @param paragraphNodes the nodes with the tag name "paragraph"
+     * @param chronicleEntryNodes the nodes with the tag name "chronicle-entry"
      * @param text the {@link Text} Object
      */
-    private static void addParagraphsToText(NodeList paragraphNodes, Text text) {
-        for (int i = 0; i < paragraphNodes.getLength(); i++) {
-            Node paragraphNode = paragraphNodes.item(i);
-            if (paragraphNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element paragraphElement = (Element) paragraphNode;
+    private static void addChronicleEntriesToText(NodeList chronicleEntryNodes, Text text) {
+        for (int i = 0; i < chronicleEntryNodes.getLength(); i++) {
+            Node chronicleEntryNode = chronicleEntryNodes.item(i);
+            if (chronicleEntryNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element chronicleEntryElement = (Element) chronicleEntryNode;
 
-                NodeList sentenceNodes = paragraphElement.getElementsByTagName("sentence");
+                String chronicleEntryId = "chronicle-entry-" + String.format("%d", i+1);
 
-                Paragraph paragraph = new Paragraph();
+                NodeList sentenceNodes = chronicleEntryElement.getElementsByTagName("sentence");
 
-                addSentencesToParagraph(sentenceNodes, paragraph);
+                ChronicleEntry chronicleEntry = new ChronicleEntry();
+                chronicleEntry.setId(chronicleEntryId);
 
-                text.setParagraph(paragraph);
+                addSentencesToChronicleEntry(sentenceNodes, chronicleEntry);
+
+                text.getChronicleEntryList().add(chronicleEntry);
             }
         }
     }
 
     /**
      * Add all sentence related information from the xml file to the
-     * {@link Paragraph} Object.
+     * {@link ChronicleEntry} Object.
      *
      * @param sentenceNodes the nodes with the tag name "sentence"
-     * @param paragraph the {@link Paragraph} object
+     * @param chronicleEntry the {@link ChronicleEntry} object
      */
-    private static void addSentencesToParagraph(NodeList sentenceNodes, Paragraph paragraph) {
+    private static void addSentencesToChronicleEntry(NodeList sentenceNodes, ChronicleEntry chronicleEntry) {
         for (int j = 0; j < sentenceNodes.getLength(); j++) {
             Node sentenceNode = sentenceNodes.item(j);
             if (sentenceNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -102,7 +105,7 @@ public class DomParser {
 
                 addTokensToSentence(tokenNodes, sentence);
 
-                paragraph.getSentenceList().add(sentence);
+                chronicleEntry.getSentenceList().add(sentence);
             }
         }
     }

@@ -219,6 +219,8 @@
         <token id="1711574" form="ѿ" citation-part="19.11" lemma="отъ" part-of-speech="R-" morphology="---------n" head-id="1711569" relation="obl" presentation-after=" " foreign-ids="7r"/>
         <token id="1711575" form="дыма" citation-part="19.11" lemma="дымъ" part-of-speech="Nb" morphology="-s---mg--i" head-id="1711574" relation="obl" presentation-after="·:· " foreign-ids="7r"/>
       </sentence>
+      </div>
+      <div>
       <sentence id="123753" status="reviewed">
         <token id="1711576" form="въ" citation-part="19.12" lemma="въ" part-of-speech="R-" morphology="---------n" head-id="1998113" relation="adv" presentation-after=" " foreign-ids="7r"/>
         <token id="1711577" form="лѣт" citation-part="19.12" lemma="лѣто" part-of-speech="Nb" morphology="-s---na--i" head-id="1711576" relation="obl" presentation-after=" " foreign-ids="7r"/>
@@ -229,6 +231,8 @@
         <token id="1998113" empty-token-sort="V" relation="pred"/>
         <token id="1998114" empty-token-sort="C" head-id="1711577" relation="atr"/>
       </sentence>
+      </div>
+      <div>
       <sentence id="123754" status="reviewed">
         <token id="1711582" form="въ" citation-part="19.13" lemma="въ" part-of-speech="R-" morphology="---------n" head-id="1711588" relation="adv" presentation-after=" " foreign-ids="7r"/>
         <token id="1711583" form="лѣт" citation-part="19.13" lemma="лѣто" part-of-speech="Nb" morphology="-s---na--i" head-id="1711582" relation="obl" presentation-after=" " foreign-ids="7r"/>

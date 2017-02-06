@@ -49,7 +49,7 @@ public class HtmlGenerator {
 
         Element body = doc.body();
 
-        addParagraph(body);
+        addChronicleEntries(body);
 
         String generatedHtml = body.html();
 
@@ -59,31 +59,35 @@ public class HtmlGenerator {
     }
 
     /**
-     * Add the paragraph to the html using all information stored
-     * inside the {@link Paragraph} Object.
+     * Add chronicle entries to the html using all information stored
+     * inside the {@link ChronicleEntry} Object.
      *
      * @param body the element with the tag name "body"
      */
-    private void addParagraph(Element body) {
-        Element paragraphElement = body.appendElement("paragraph");
+    private void addChronicleEntries(Element body) {
+        for(ChronicleEntry chronicleEntry: text.getChronicleEntryList()){
+            Element chronicleEntryElement = body
+                    .appendElement("chronicle-entry")
+                    .attr("id", chronicleEntry.getId());
 
-        addSentences(paragraphElement, text.getParagraph().getSentenceList());
+            addSentences(chronicleEntryElement, chronicleEntry.getSentenceList());
+        }
     }
 
     /**
      * Add sentences to the html using all information stored
      * inside the {@link Sentence} Object.
      *
-     * @param paragraphElement the element with the tag name "paragraph"
+     * @param chronicleEntryElement the element with the tag name "chronicle-entry"
      * @param sentenceList the sentences inside this paragraph
      */
-    private void addSentences(Element paragraphElement, List<Sentence> sentenceList) {
+    private void addSentences(Element chronicleEntryElement, List<Sentence> sentenceList) {
         for(Sentence sentence: sentenceList){
-            Element sentenceElment = paragraphElement
+            Element sentenceElement = chronicleEntryElement
                     .appendElement("sentence")
                     .attr("id", sentence.getId());
 
-            addTokens(sentenceElment, sentence.getTokenList());
+            addTokens(sentenceElement, sentence.getTokenList());
         }
     }
 
@@ -91,12 +95,12 @@ public class HtmlGenerator {
      * Add Tokens to the html using all information stored
      * inside the {@link Token} Object.
      *
-     * @param sentenceElment the element with the tag name "sentence"
+     * @param sentenceElement the element with the tag name "sentence"
      * @param tokenList the tokens inside this sentence
      */
-    private void addTokens(Element sentenceElment, List<Token> tokenList) {
+    private void addTokens(Element sentenceElement, List<Token> tokenList) {
         for(Token token: tokenList){
-            Element tokenElement = sentenceElment.appendElement("token");
+            Element tokenElement = sentenceElement.appendElement("token");
 
             for(Map.Entry<String, String> tokenEntry: token.getAttributes().entrySet()){
                 String key = "data-" + tokenEntry.getKey();
@@ -108,7 +112,7 @@ public class HtmlGenerator {
             tokenElement.text(tokenElement.attr("data-form"));
             tokenElement.removeAttr("data-form");
 
-            sentenceElment.append(tokenElement.attr("data-presentation-after"));
+            sentenceElement.append(tokenElement.attr("data-presentation-after"));
             tokenElement.removeAttr("data-presentation-after");
 
             addSlashes(tokenElement, token.getSlashList());

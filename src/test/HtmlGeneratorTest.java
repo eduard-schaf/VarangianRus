@@ -9,7 +9,11 @@ import org.jsoup.nodes.Element;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.nio.file.*;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -48,65 +52,102 @@ public class HtmlGeneratorTest {
     }
 
     @Test
-    public void getParagraph() {
-        int expected = 1;
+    public void getChronicleEntries() {
+        int expected = 3;
 
-        int result = doc.select("paragraph").size();
+        int result = doc.select("chronicle-entry").size();
 
         assertEquals(
-                "Should have one paragraph",
+                "Should have 3 chronicle entries",
                 expected,
                 result
         );
     }
 
     @Test
-    public void getParagraphSentenceListSize() {
-        int expected = 55;
-
-        final int result = doc
-                .select("paragraph")
-                .select("sentence").size();
-
-        assertEquals(
-                "Should have matching number of sentences of the paragraph",
-                expected,
-                result
-        );
-    }
-
-    @Test
-    public void getParagraphSentenceListFirstSentenceId() {
-        String expected = "123745";
+    public void getChronicleEntryIds() {
+        String expected =
+                "chronicle-entry-1\n" +
+                "chronicle-entry-2\n" +
+                "chronicle-entry-3";
 
         final String result = doc
-                .select("paragraph")
-                .select("sentence").first().attr("id");
+                .select("chronicle-entry")
+                .stream()
+                .map(element -> element.attr("id"))
+                .collect(Collectors.joining("\n"));
 
         assertEquals(
-                "Should have the matching first sentence id of the paragraph",
+                "Should have matching chronicle entry ids",
                 expected,
                 result
         );
     }
 
     @Test
-    public void getParagraphSentenceListFirstSentenceTokenListSize() {
-        int expected = 23;
+    public void getChronicleEntrySentenceListSizes() {
+        List<Integer> expected = Arrays.asList(
+                3,
+                1,
+                51
+        );
 
-        final int result = doc
-                .select("paragraph")
-                .select("sentence").first().select("token").size();
+        final List<Integer> result = doc
+                .select("chronicle-entry")
+                .stream()
+                .map(chronicleEntry -> chronicleEntry.select("sentence").size())
+                .collect(Collectors.toList());
 
         assertEquals(
-                "Should have the matching first sentence token list size of the paragraph",
+                "Should have matching number of sentences of each chronicle entry",
                 expected,
                 result
         );
     }
 
     @Test
-    public void getFirstParagraphFirstSentenceFirstToken() {
+    public void getChronicleEntrySentenceListFirstSentenceIds() {
+        String expected =
+                "123745\n" +
+                "123753\n" +
+                "123754";
+
+        final String result = doc
+                .select("chronicle-entry")
+                .stream()
+                .map(chronicleEntry -> chronicleEntry.select("sentence").first().attr("id"))
+                .collect(Collectors.joining("\n"));
+
+        assertEquals(
+                "Should have the matching first sentence id of each chronicle entry",
+                expected,
+                result
+        );
+    }
+
+    @Test
+    public void getChronicleEntrySentenceListFirstSentenceTokenListSizes() {
+        List<Integer> expected = Arrays.asList(
+                23,
+                8,
+                16
+        );
+
+        final List<Integer> result = doc
+                .select("chronicle-entry")
+                .stream()
+                .map(chronicleEntry -> chronicleEntry.select("sentence").first().select("token").size())
+                .collect(Collectors.toList());
+
+        assertEquals(
+                "Should have the matching first sentence token list sizes of each chronicle entry",
+                expected,
+                result
+        );
+    }
+
+    @Test
+    public void getFirstChronicleEntryFirstSentenceFirstToken() {
         Element expected = new Element("token")
                 .attr("id", "1711536")
                 .attr("data-lemma", "въ")
@@ -117,7 +158,7 @@ public class HtmlGeneratorTest {
                 .text("въ");
 
         Element result = doc
-                .select("paragraph")
+                .select("chronicle-entry")
                 .first()
                 .select("sentence")
                 .first()
@@ -125,14 +166,14 @@ public class HtmlGeneratorTest {
                 .first();
 
         assertEquals(
-                "Should have the matching element in the first paragraph, first sentence, first token",
+                "Should have the matching element in the first chronicle entry, first sentence, first token",
                 expected.toString(),
                 result.toString()
         );
     }
 
     @Test
-    public void getFirstParagraphFirstSentenceLastToken() {
+    public void getFirstChronicleEntryFirstSentenceLastToken() {
         Element expected = new Element("token")
                 .attr("id", "1922320")
                 .attr("data-empty-token-sort", "C")
@@ -140,7 +181,7 @@ public class HtmlGeneratorTest {
                 .attr("data-relation", "atr");
 
         Element result = doc
-                .select("paragraph")
+                .select("chronicle-entry")
                 .first()
                 .select("sentence")
                 .first()
@@ -148,18 +189,18 @@ public class HtmlGeneratorTest {
                 .last();
 
         assertEquals(
-                "Should have the matching element in the first paragraph, first sentence, last token",
+                "Should have the matching element in the first chronicle entry, first sentence, last token",
                 expected.toString(),
                 result.toString()
         );
     }
 
     @Test
-    public void getLastParagraphLastSentenceLastTokenAfterTag() {
+    public void getLastChronicleEntryLastSentenceLastTokenAfterTag() {
         String expected = "·:· ";
 
         String result = doc
-                .select("paragraph")
+                .select("chronicle-entry")
                 .last()
                 .select("sentence")
                 .last()
@@ -169,7 +210,7 @@ public class HtmlGeneratorTest {
                 .toString();
 
         assertEquals(
-                "Should have the matching string after the tag in the last paragraph, last sentence, last token",
+                "Should have the matching string after the tag in the last chronicle entry, last sentence, last token",
                 expected,
                 result
         );
@@ -192,7 +233,8 @@ public class HtmlGeneratorTest {
                 slash2.toString();
 
         final List<Element> tokenListHavingTokenWithSlashes = doc
-                .select("paragraph")
+                .select("chronicle-entry")
+                .get(2)
                 .select("sentence")
                 .stream()
                 .filter(sentence -> "123761".equals(sentence.attr("id")))
