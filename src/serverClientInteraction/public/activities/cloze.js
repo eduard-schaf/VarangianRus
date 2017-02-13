@@ -6,6 +6,8 @@ UI.cloze = {
     UI.activityHelper.exerciseHandler(UI.cloze.createExercise);
 
     $(".input").on("keyup", UI.cloze.handler);
+
+    UI["virtual-keyboard"].init();
   },
 
   /**

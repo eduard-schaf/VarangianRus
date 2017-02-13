@@ -56,6 +56,8 @@ UI.activityHelper = {
     const $EnhancementElement = $ElementBox.parent();
     const elementId = $(".input").index($ElementBox);
 
+    $ElementBox.keyboard().getkeyboard().destroy();
+
     $EnhancementElement.addClass("input-style-" + inputStyleType);
     $EnhancementElement.html($ElementBox.data("answer"));
 
