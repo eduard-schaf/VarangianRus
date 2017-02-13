@@ -35,3 +35,17 @@
 chronicle-entry {
     display: block;
 }
+
+.ui-keyboard {
+    border: thick double black;
+}
+
+.ui-keyboard-accept {
+    background-color: #3e8e41;
+    color: white;
+}
+
+.ui-keyboard-cancel {
+    background-color: #ff5d5b;
+    color: white;
+}
