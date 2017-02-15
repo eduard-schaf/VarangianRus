@@ -3,6 +3,8 @@
 <head>
     <link href="css/index.css" rel="stylesheet">
     <link href="css/activities.css" rel="stylesheet">
+    <link href="css/keyboard.min.css" rel="stylesheet">
+    <link href="css/keyboard-previewkeyset.min.css" rel="stylesheet">
     <title>Varangians</title>
 </head>
 <body>
@@ -31,10 +33,19 @@
 <div id="text-content">
     <!-- text content appears here dynamically -->
 </div>
+<div id="virtual-keyboard-area">
+
+</div>
 <script src="/socket.io/socket.io.js"></script>
 <script src="lib/jquery-3.1.1.min.js"></script>
+<script src="lib/jquery-ui.min.js"></script>
+<script src="lib/jquery.keyboard.js"></script>
+<script src="lib/jquery.keyboard.extension-all.min.js"></script>
+<script src="lib/ru.min.js"></script>
+<script src="lib/russian.min.js"></script>
 <script src="user-interface.js"></script>
 <script src="server-message-handler.js"></script>
+<script src="virtual-keyboard.js"></script>
 <script src="data.js"></script>
 <script src="utils.js"></script>
 <script src="activities/activityHelper.js"></script>
