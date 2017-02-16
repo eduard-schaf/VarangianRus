@@ -14,7 +14,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -147,7 +149,7 @@ public class HtmlGeneratorTest {
     }
 
     @Test
-    public void getFirstChronicleEntryFirstSentenceFirstToken() {
+    public void tokenWithoutDistractors() {
         Element expected = new Element("token")
                 .attr("id", "1711536")
                 .attr("data-form", "въ")
@@ -159,22 +161,42 @@ public class HtmlGeneratorTest {
                 .text("въ");
 
         Element result = doc
-                .select("chronicle-entry")
-                .first()
-                .select("sentence")
-                .first()
-                .select("token")
+                .select("#1711536")
                 .first();
 
         assertEquals(
-                "Should have the matching element in the first chronicle entry, first sentence, first token",
+                "Should have the matching element without distractors",
                 expected.toString(),
                 result.toString()
         );
     }
 
     @Test
-    public void getFirstChronicleEntryFirstSentenceLastToken() {
+    public void tokenWithDistractors() {
+        Element expected = new Element("token")
+                .attr("id", "1711871")
+                .attr("data-form", "варѧги")
+                .attr("data-lemma", "варягъ")
+                .attr("data-part-of-speech", "Nb")
+                .attr("data-morphology", "-p---ma--i")
+                .attr("data-head-id", "1711872")
+                .attr("data-relation", "obj")
+                .attr("data-distractors", "варѧзи;варѧга;варꙗга;варѧгъ;варѧгомъ")
+                .text("варѧги");
+
+        Element result = doc
+                .select("#1711871")
+                .first();
+
+        assertEquals(
+                "Should have the matching element with distractors",
+                expected.toString(),
+                result.toString()
+        );
+    }
+
+    @Test
+    public void tokenWithEmptyTokenSort() {
         Element expected = new Element("token")
                 .attr("id", "1922320")
                 .attr("data-empty-token-sort", "C")
@@ -182,36 +204,28 @@ public class HtmlGeneratorTest {
                 .attr("data-relation", "atr");
 
         Element result = doc
-                .select("chronicle-entry")
-                .first()
-                .select("sentence")
-                .first()
-                .select("token")
-                .last();
+                .select("#1922320")
+                .first();
 
         assertEquals(
-                "Should have the matching element in the first chronicle entry, first sentence, last token",
+                "Should have the matching element with the empty token sort attribute",
                 expected.toString(),
                 result.toString()
         );
     }
 
     @Test
-    public void getLastChronicleEntryLastSentenceLastTokenAfterTag() {
+    public void textAfterTag() {
         String expected = "·:· ";
 
         String result = doc
-                .select("chronicle-entry")
-                .last()
-                .select("sentence")
-                .last()
-                .select("token")
-                .last()
+                .select("#1711882")
+                .first()
                 .nextSibling()
                 .toString();
 
         assertEquals(
-                "Should have the matching string after the tag in the last chronicle entry, last sentence, last token",
+                "Should have the matching string after the tag",
                 expected,
                 result
         );
@@ -233,22 +247,10 @@ public class HtmlGeneratorTest {
                 slash1.toString() + System.lineSeparator() +
                 slash2.toString();
 
-        final List<Element> tokenListHavingTokenWithSlashes = doc
-                .select("chronicle-entry")
-                .get(2)
-                .select("sentence")
-                .stream()
-                .filter(sentence -> "123761".equals(sentence.attr("id")))
-                .map(sentence -> sentence.select("token"))
-                .collect(Collectors.toList())
-                .get(0);
-
-        final String result = tokenListHavingTokenWithSlashes
-                .stream()
-                .filter(token -> !token.select(slashTag).isEmpty())
-                .map(token -> token.select(slashTag))
-                .collect(Collectors.toList())
-                .get(0)
+        final String result = doc
+                .select("#1711636")
+                .first()
+                .select(slashTag)
                 .stream()
                 .map(Element::toString)
                 .collect(Collectors.joining(System.lineSeparator()));
@@ -268,7 +270,7 @@ public class HtmlGeneratorTest {
 
         String fileEnding = ".html";
 
-        StringBuilder expectedBuilder = new StringBuilder();
+        Set<String> expectedSet = new HashSet<>();
 
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(dataFolder, "*.{xml}")) {
             for (Path entry: stream) {
@@ -278,32 +280,27 @@ public class HtmlGeneratorTest {
 
                 htmlGenerator.convertTextToHtml();
 
-                expectedBuilder
-                        .append(htmlFolder)
-                        .append(htmlGenerator.getFileName())
-                        .append(fileEnding)
-                        .append(System.lineSeparator());
+                String htmlFilePath = htmlFolder.concat(htmlGenerator.getFileName()).concat(fileEnding);
+
+                expectedSet.add(htmlFilePath);
             }
         }
 
-        String expected = expectedBuilder.toString().trim();
-
-        String result;
+        Set<String> resultSet;
 
         Path start = Paths.get(htmlFolder);
         int maxDepth = 5;
         try (Stream<Path> stream = Files.find(start, maxDepth, (path, attr) ->
                 String.valueOf(path).endsWith(fileEnding))) {
-            result = stream
-                    .sorted()
+            resultSet = stream
                     .map(String::valueOf)
-                    .collect(Collectors.joining(System.lineSeparator()));
+                    .collect(Collectors.toSet());
         }
 
         assertEquals(
                 "Should have created the html files in the expected location",
-                expected,
-                result
+                expectedSet,
+                resultSet
         );
     }
 }

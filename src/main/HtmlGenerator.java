@@ -3,15 +3,21 @@ package main;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Eduard Schaf
@@ -50,6 +56,8 @@ public class HtmlGenerator {
         Element body = doc.body();
 
         addChronicleEntries(body);
+
+        addDistractors(body);
 
         String generatedHtml = body.html();
 
@@ -131,6 +139,45 @@ public class HtmlGenerator {
                     .appendElement("slash")
                     .attr("data-target-id", slash.getTargetId())
                     .attr("data-relation", slash.getRelation());
+        }
+    }
+
+    /**
+     * Add distractors from the distractor list file to the html.
+     *
+     * @param body the element with the tag name "body"
+     */
+    private void addDistractors(Element body) throws IOException {
+        try (BufferedReader br = Files.newBufferedReader(Paths.get("src/data/distractor_list_all.csv"))) {
+
+            while(br.ready()){
+                String line = br.readLine();
+
+                String[] lineParts = line.split(";");
+
+                String distractorInfo = lineParts[5];
+
+                String tokenId = lineParts[0];
+
+                Elements tokenElements = body.select("#" + tokenId);
+
+                if(!tokenElements.isEmpty() && !"no distractor".equals(distractorInfo)){
+                        Set<String> distractorSet = new HashSet<>();
+
+                        Stream.of(distractorInfo.split("\\|"))
+                                .forEach(
+                                        morphTagWithForms ->
+                                                Stream.of(morphTagWithForms.split(":")[1].split(","))
+                                                        .forEach(distractorSet::add)
+                                );
+
+                        String distractors = distractorSet
+                                .stream()
+                                .collect(Collectors.joining(";"));
+
+                        tokenElements.first().attr("data-distractors", distractors);
+                }
+            }
         }
     }
 
