@@ -14,7 +14,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -268,7 +270,7 @@ public class HtmlGeneratorTest {
 
         String fileEnding = ".html";
 
-        StringBuilder expectedBuilder = new StringBuilder();
+        Set<String> expectedSet = new HashSet<>();
 
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(dataFolder, "*.{xml}")) {
             for (Path entry: stream) {
@@ -278,32 +280,27 @@ public class HtmlGeneratorTest {
 
                 htmlGenerator.convertTextToHtml();
 
-                expectedBuilder
-                        .append(htmlFolder)
-                        .append(htmlGenerator.getFileName())
-                        .append(fileEnding)
-                        .append(System.lineSeparator());
+                String htmlFilePath = htmlFolder.concat(htmlGenerator.getFileName()).concat(fileEnding);
+
+                expectedSet.add(htmlFilePath);
             }
         }
 
-        String expected = expectedBuilder.toString().trim();
-
-        String result;
+        Set<String> resultSet;
 
         Path start = Paths.get(htmlFolder);
         int maxDepth = 5;
         try (Stream<Path> stream = Files.find(start, maxDepth, (path, attr) ->
                 String.valueOf(path).endsWith(fileEnding))) {
-            result = stream
-                    .sorted()
+            resultSet = stream
                     .map(String::valueOf)
-                    .collect(Collectors.joining(System.lineSeparator()));
+                    .collect(Collectors.toSet());
         }
 
         assertEquals(
                 "Should have created the html files in the expected location",
-                expected,
-                result
+                expectedSet,
+                resultSet
         );
     }
 }
