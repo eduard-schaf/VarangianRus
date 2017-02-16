@@ -24,8 +24,15 @@ const UI = {
    * Request to get the text from the server.
    */
   getText: function() {
-    $("#restore").hide();
+    UI.hideRestore();
     IO.socket.emit("get text", $("#text-menu").val());
+  },
+
+  /**
+   * Hide the restore button.
+   */
+  hideRestore: function() {
+    $("#restore").hide();
   },
 
   /**
@@ -94,14 +101,23 @@ const UI = {
   restore: function() {
     UI.activityHelper.restore();
 
-    $("#restore").hide();
+    UI.hideRestore();
   },
 
   /**
    * The ui state at the beginning.
    */
   initialUiState: function() {
-    $("#restore").hide();
+    UI.hideExerciseCounter();
+    UI.hideRestore();
     $(".menu").val("unselected");
+  },
+
+
+  /**
+   * Hide the exercise counter.
+   */
+  hideExerciseCounter: function() {
+    $("#exercise-counter").hide();
   }
 };
