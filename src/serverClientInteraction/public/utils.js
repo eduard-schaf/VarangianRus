@@ -39,5 +39,20 @@ UI.utils = {
       default:
         return word;
     }
+  },
+
+  /**
+   * Fisher-Yates shuffle, rearrange an array.
+   *
+   * @param elemList the list to be shuffled
+   */
+  shuffleList: function(elemList) {
+    let i, j, tempElem;
+    for (i = elemList.length; i > 1; i--) {
+      j = parseInt(Math.random() * i);
+      tempElem = elemList[j];
+      elemList[j] = elemList[i - 1];
+      elemList[i - 1] = tempElem;
+    }
   }
 };
