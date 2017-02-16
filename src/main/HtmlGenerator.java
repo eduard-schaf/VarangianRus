@@ -3,6 +3,7 @@ package main;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -56,9 +57,7 @@ public class HtmlGenerator {
 
         addChronicleEntries(body);
 
-        if("The Varangians are called, The Primary Chronicle, Codex Laurentianus".equals(title)){
-            addDistractors(body);
-        }
+        addDistractors(body);
 
         String generatedHtml = body.html();
 
@@ -149,7 +148,7 @@ public class HtmlGenerator {
      * @param body the element with the tag name "body"
      */
     private void addDistractors(Element body) throws IOException {
-        try (BufferedReader br = Files.newBufferedReader(Paths.get("src/data/distractor_list.csv"))) {
+        try (BufferedReader br = Files.newBufferedReader(Paths.get("src/data/distractor_list_all.csv"))) {
 
             while(br.ready()){
                 String line = br.readLine();
@@ -158,22 +157,25 @@ public class HtmlGenerator {
 
                 String distractorInfo = lineParts[5];
 
-                if(!"no distractor".equals(distractorInfo)){
-                    Set<String> distractorSet = new HashSet<>();
-                    String tokenId = lineParts[0];
+                String tokenId = lineParts[0];
 
-                    Stream.of(distractorInfo.split("\\|"))
-                            .forEach(
-                                    morphTagWithForms ->
-                                            Stream.of(morphTagWithForms.split(":")[1].split(","))
-                                                    .forEach(distractorSet::add)
-                            );
+                Elements tokenElements = body.select("#" + tokenId);
 
-                    String distractors = distractorSet
-                            .stream()
-                            .collect(Collectors.joining(";"));
+                if(!tokenElements.isEmpty() && !"no distractor".equals(distractorInfo)){
+                        Set<String> distractorSet = new HashSet<>();
 
-                    body.select("#" + tokenId).first().attr("data-distractors", distractors);
+                        Stream.of(distractorInfo.split("\\|"))
+                                .forEach(
+                                        morphTagWithForms ->
+                                                Stream.of(morphTagWithForms.split(":")[1].split(","))
+                                                        .forEach(distractorSet::add)
+                                );
+
+                        String distractors = distractorSet
+                                .stream()
+                                .collect(Collectors.joining(";"));
+
+                        tokenElements.first().attr("data-distractors", distractors);
                 }
             }
         }
