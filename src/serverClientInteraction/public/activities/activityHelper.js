@@ -1,5 +1,22 @@
 UI.activityHelper = {
   /**
+   * Init the exercise count.
+   */
+  initExerciseCount: function() {
+    $("#exercise-count").text($(".hit").length);
+
+    $("#exercise-counter").show();
+  },
+
+  /**
+   * Decrease the current exercise count.
+   */
+  decreaseExerciseCount: function() {
+    const $ExerciseCount = $("#exercise-count");
+    $ExerciseCount.text($ExerciseCount.text() - 1);
+  },
+
+  /**
    * Generate multiple choice or cloze exercises.
    *
    * @param {function} createExercise either the mc or cloze createExercise
@@ -56,6 +73,8 @@ UI.activityHelper = {
     const $EnhancementElement = $ElementBox.parent();
     const elementId = $(".input").index($ElementBox);
 
+    UI.activityHelper.decreaseExerciseCount();
+
     $ElementBox.keyboard().getkeyboard().destroy();
 
     $EnhancementElement.addClass("input-style-" + inputStyleType);
@@ -77,7 +96,7 @@ UI.activityHelper = {
     if($Element.length) {
       UI.activityHelper.scrollToCenter($Element);
     }
-    else {
+    else if($FirstElement.length) {
       UI.activityHelper.scrollToCenter($FirstElement);
     }
   },
@@ -157,5 +176,8 @@ UI.activityHelper = {
 
     // cloze
     $("baseform").remove();
+
+    // exercise counter
+    UI.hideExerciseCounter();
   }
 };

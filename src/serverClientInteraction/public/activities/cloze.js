@@ -3,6 +3,8 @@ UI.cloze = {
    * Run the cloze activity.
    */
   run: function() {
+    UI.activityHelper.initExerciseCount();
+
     UI.activityHelper.exerciseHandler(UI.cloze.createExercise);
 
     $(".input").on("keyup", UI.cloze.handler);
