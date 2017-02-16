@@ -5,6 +5,8 @@ UI.mc = {
   run: function() {
     $(".hit:not([data-distractors])").removeClass("hit");
 
+    UI.activityHelper.initExerciseCount();
+
     UI.activityHelper.exerciseHandler(UI.mc.createExercise);
 
     $(".input").on("change", UI.activityHelper.inputHandler);
