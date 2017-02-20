@@ -158,6 +158,7 @@ public class HtmlGeneratorTest {
                 .attr("data-morphology", "---------n")
                 .attr("data-head-id", "1711542")
                 .attr("data-relation", "adv")
+                .attr("data-answers", "въ")
                 .text("въ");
 
         Element result = doc
@@ -182,7 +183,7 @@ public class HtmlGeneratorTest {
                 .attr("data-head-id", "1711872")
                 .attr("data-relation", "obj")
                 .attr("data-distractors", "варѧзи;варѧга;варꙗга;варѧгъ;варѧгомъ")
-                .attr("data-alternatives", "варѧги;вариги;варѧгы;вѧрѧгы;варяги;варягы;вярягы")
+                .attr("data-answers", "варѧги;вариги;варѧгы;вѧрѧгы;варяги;варягы;вярягы")
                 .text("варѧги");
 
         Element result = doc
