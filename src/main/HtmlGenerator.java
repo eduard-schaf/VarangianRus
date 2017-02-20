@@ -57,7 +57,7 @@ public class HtmlGenerator {
 
         addChronicleEntries(body);
 
-        addDistractors(body);
+        addDistractorsAndAnswers(body);
 
         String generatedHtml = body.html();
 
@@ -143,41 +143,75 @@ public class HtmlGenerator {
     }
 
     /**
-     * Add distractors from the distractor list file to the html.
+     * Add distractors and answers from a file to tokens in the html.
      *
      * @param body the element with the tag name "body"
      */
-    private void addDistractors(Element body) throws IOException {
-        try (BufferedReader br = Files.newBufferedReader(Paths.get("src/data/distractor_list_all.csv"))) {
+    private void addDistractorsAndAnswers(Element body) throws IOException {
+        try (BufferedReader br = Files.newBufferedReader(Paths.get("src/data/distractors_alternatives.csv"))) {
 
             while(br.ready()){
                 String line = br.readLine();
 
                 String[] lineParts = line.split(";");
 
+                String tokenId = lineParts[0];
+
+                String form = lineParts[1];
+
                 String distractorInfo = lineParts[5];
 
-                String tokenId = lineParts[0];
+                String alternativesInfo = lineParts[6];
 
                 Elements tokenElements = body.select("#" + tokenId);
 
-                if(!tokenElements.isEmpty() && !"no distractor".equals(distractorInfo)){
-                        Set<String> distractorSet = new HashSet<>();
+                if(!tokenElements.isEmpty()){
+                    addDistractors(distractorInfo, tokenElements);
 
-                        Stream.of(distractorInfo.split("\\|"))
-                                .forEach(
-                                        morphTagWithForms ->
-                                                Stream.of(morphTagWithForms.split(":")[1].split(","))
-                                                        .forEach(distractorSet::add)
-                                );
-
-                        String distractors = distractorSet
-                                .stream()
-                                .collect(Collectors.joining(";"));
-
-                        tokenElements.first().attr("data-distractors", distractors);
+                    addAnswers(form, alternativesInfo, tokenElements);
                 }
             }
+        }
+    }
+
+    /**
+     * Add distractors to tokens in the html.
+     *
+     * @param distractorInfo all info regarding the distractors of this token
+     * @param tokenElements the token in the html
+     */
+    private void addDistractors(String distractorInfo, Elements tokenElements) {
+        if(!"no distractor".equals(distractorInfo)){
+            Set<String> distractorSet = new HashSet<>();
+
+            Stream.of(distractorInfo.split("\\|"))
+                    .forEach(
+                            morphTagWithForms ->
+                                    Stream.of(morphTagWithForms.split(":")[1].split(","))
+                                            .forEach(distractorSet::add)
+                    );
+
+            String distractors = distractorSet
+                    .stream()
+                    .collect(Collectors.joining(";"));
+
+            tokenElements.first().attr("data-distractors", distractors);
+        }
+    }
+
+    /**
+     * Add answers to tokens in the html.
+     *
+     * @param form the form of this token
+     * @param alternativesInfo all info regarding the alternatives of this token
+     * @param tokenElements the token in the html
+     */
+    private void addAnswers(String form, String alternativesInfo, Elements tokenElements) {
+        if(!"no alternative".equals(alternativesInfo)){
+            tokenElements.first().attr("data-answers", alternativesInfo.replace(",", ";"));
+        }
+        else {
+            tokenElements.first().attr("data-answers", form);
         }
     }
 

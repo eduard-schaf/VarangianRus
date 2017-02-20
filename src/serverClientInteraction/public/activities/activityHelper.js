@@ -44,7 +44,7 @@ UI.activityHelper = {
    * Deals with the hint in the mc and cloze activities.
    */
   hintHandler: function() {
-    UI.activityHelper.processCorrect($(this).prev(), "provided");
+    UI.activityHelper.processCorrect($(this).prev(), "provided", $(this).parent().data("form"));
   },
 
   /**
@@ -54,9 +54,17 @@ UI.activityHelper = {
    */
   inputHandler: function(e) {
     const $ElementBox = $(e.target);
+    const answers = $ElementBox.parent().data("answers").toLowerCase().split(";");
+    const answerIndex = answers.indexOf($ElementBox.val().toLowerCase());
 
-    if($ElementBox.val().toLowerCase() === $ElementBox.data("answer").toLowerCase()) {
-      UI.activityHelper.processCorrect($ElementBox, "correct");
+    if(answerIndex !== -1) {
+      const form = $ElementBox.parent().data("form");
+
+      const capType = UI.utils.detectCapitalization(form);
+
+      const answer = UI.utils.matchCapitalization(answers[answerIndex], capType);
+
+      UI.activityHelper.processCorrect($ElementBox, "correct", answer);
     }
     else {
       UI.activityHelper.processIncorrect($ElementBox);
@@ -68,8 +76,9 @@ UI.activityHelper = {
    *
    * @param {object} $ElementBox the select or input box
    * @param {string} inputStyleType either "correct" or "provided"
+   * @param {string} answer the answer provided by the user
    */
-  processCorrect: function($ElementBox, inputStyleType) {
+  processCorrect: function($ElementBox, inputStyleType, answer) {
     const $EnhancementElement = $ElementBox.parent();
     const elementId = $(".input").index($ElementBox);
 
@@ -78,7 +87,7 @@ UI.activityHelper = {
     $ElementBox.keyboard().getkeyboard().destroy();
 
     $EnhancementElement.addClass("input-style-" + inputStyleType);
-    $EnhancementElement.html($ElementBox.data("answer"));
+    $EnhancementElement.html(answer);
 
     UI.activityHelper.jumpTo(elementId);
   },
@@ -135,8 +144,8 @@ UI.activityHelper = {
    *
    * @param {object} $hit the enhancement element
    */
-  getCorrectAnswer: function($hit) {
-    return $hit.text();
+  getCorrectAnswers: function($hit) {
+    return $hit.data("answers").split(";");
   },
 
   /**

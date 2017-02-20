@@ -18,9 +18,9 @@ UI.cloze = {
    * @param {object} $hit the enhancement element the exercise is created for
    */
   createExercise: function($hit) {
-    const answer = UI.activityHelper.getCorrectAnswer($hit);
+    const answers = UI.activityHelper.getCorrectAnswers($hit);
 
-    UI.cloze.createInputBox(answer, $hit);
+    UI.cloze.createInputBox(answers, $hit);
 
     UI.activityHelper.createHint($hit);
 
@@ -30,10 +30,10 @@ UI.cloze = {
   /**
    * Create the input box.
    *
-   * @param {string} answer the correct answer
+   * @param {string} answers the correct answers
    * @param {object} $hit the enhancement element the input box is appended to
    */
-  createInputBox: function(answer, $hit) {
+  createInputBox: function(answers, $hit) {
     // create input box
     const $InputBox = $("<input>");
     $InputBox.addClass("input");
@@ -41,9 +41,7 @@ UI.cloze = {
 
     $InputBox.attr("type", "text");
     // average of 10 px per letter (can fit 10 x "м" with a width of 110)
-    $InputBox.css("width", (answer.length * 10) + "px");
-
-    $InputBox.data("answer", answer);
+    $InputBox.css("width", (answers[0].length * 10) + "px");
 
     $hit.empty();
     $hit.append($InputBox);
