@@ -30,7 +30,7 @@ UI.cloze = {
   /**
    * Create the input box.
    *
-   * @param {string} answers the correct answer
+   * @param {string} answers the correct answers
    * @param {object} $hit the enhancement element the input box is appended to
    */
   createInputBox: function(answers, $hit) {
