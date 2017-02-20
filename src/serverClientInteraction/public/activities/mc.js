@@ -23,11 +23,9 @@ UI.mc = {
 
     const capType = UI.utils.detectCapitalization(hitText);
 
-    const answer = UI.activityHelper.getCorrectAnswer($hit);
+    const options = UI.mc.getOptions($hit, hitText, capType);
 
-    const options = UI.mc.getOptions($hit, answer, capType);
-
-    UI.mc.createSelectBox(options, hitText, answer, $hit);
+    UI.mc.createSelectBox(options, $hit);
 
     UI.activityHelper.createHint($hit);
   },
@@ -36,23 +34,25 @@ UI.mc = {
    * Gets the options provided by the server in the distractors attribute.
    *
    * @param {object} $hit the enhancement element
-   * @param {string} answer the correct answer
+   * @param {string} hitText the original text of the enhancement tag
    * @param {number} capType the capitalization type of the original word
    * @returns {Array} the options
    */
-  getOptions: function($hit, answer, capType) {
+  getOptions: function($hit, hitText, capType) {
     const distractors = $hit.data("distractors").split(";");
 
-    return UI.mc.fillOptions(distractors, answer, capType);
+    UI.utils.shuffleList(distractors);
+
+    return UI.mc.fillOptions(distractors, hitText, capType);
   },
 
   /**
    * Add the distractor forms to the options.
    * @param {Array} distractors the distractor forms
-   * @param {string} answer the correct answer
+   * @param {string} hitText the original text of the enhancement tag
    * @param {number} capType the capitalization type of the original word
    */
-  fillOptions: function(distractors, answer, capType) {
+  fillOptions: function(distractors, hitText, capType) {
     const options = [];
     let j = 0;
 
@@ -61,7 +61,7 @@ UI.mc = {
       UI.mc.addOption(options, distractor, capType);
       j++;
     }
-    UI.mc.addOption(options, answer, capType);
+    UI.mc.addOption(options, hitText, capType);
     UI.utils.shuffleList(options);
 
     return options;
@@ -82,11 +82,9 @@ UI.mc = {
    * Create the select box with distractors as options.
    *
    * @param {Array} options the selection options
-   * @param {string} hitText the original text of the enhancement tag
-   * @param {string} answer the correct answer
    * @param {object} $hit the enhancement element the input box is appended to
    */
-  createSelectBox: function(options, hitText, answer, $hit) {
+  createSelectBox: function(options, $hit) {
     const $SelectBox = $("<select>");
     $SelectBox.addClass("input");
 
@@ -95,8 +93,6 @@ UI.mc = {
     for (let j = 0; j < options.length; j++) {
       UI.mc.addSelectOption($SelectBox, options[j]);
     }
-
-    $SelectBox.data("answer", answer);
 
     $hit.empty();
     $hit.append($SelectBox);
