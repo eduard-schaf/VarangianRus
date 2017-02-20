@@ -57,7 +57,7 @@ public class HtmlGenerator {
 
         addChronicleEntries(body);
 
-        addDistractorsAndAlternatives(body);
+        addDistractorsAndAnswers(body);
 
         String generatedHtml = body.html();
 
@@ -143,11 +143,11 @@ public class HtmlGenerator {
     }
 
     /**
-     * Add distractors and alternatives from a file to tokens in the html.
+     * Add distractors and answers from a file to tokens in the html.
      *
      * @param body the element with the tag name "body"
      */
-    private void addDistractorsAndAlternatives(Element body) throws IOException {
+    private void addDistractorsAndAnswers(Element body) throws IOException {
         try (BufferedReader br = Files.newBufferedReader(Paths.get("src/data/distractors_alternatives.csv"))) {
 
             while(br.ready()){
