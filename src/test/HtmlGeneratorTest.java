@@ -172,7 +172,7 @@ public class HtmlGeneratorTest {
     }
 
     @Test
-    public void tokenWithDistractors() {
+    public void tokenWithDistractorsAndAlternatives() {
         Element expected = new Element("token")
                 .attr("id", "1711871")
                 .attr("data-form", "варѧги")
@@ -182,6 +182,7 @@ public class HtmlGeneratorTest {
                 .attr("data-head-id", "1711872")
                 .attr("data-relation", "obj")
                 .attr("data-distractors", "варѧзи;варѧга;варꙗга;варѧгъ;варѧгомъ")
+                .attr("data-alternatives", "варѧги;вариги;варѧгы;вѧрѧгы;варяги;варягы;вярягы")
                 .text("варѧги");
 
         Element result = doc
