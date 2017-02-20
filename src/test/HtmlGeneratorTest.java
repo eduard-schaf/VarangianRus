@@ -173,7 +173,7 @@ public class HtmlGeneratorTest {
     }
 
     @Test
-    public void tokenWithDistractorsAndAlternatives() {
+    public void tokenWithDistractors() {
         Element expected = new Element("token")
                 .attr("id", "1711871")
                 .attr("data-form", "варѧги")
