@@ -76,15 +76,18 @@ const UI = {
    * @param {object} topicData all data related to the selected topic
    */
   markHits: function(topicData) {
-    $("[data-part-of-speech='" + topicData["part-of-speech"] + "']").each(function() {
-      const $Token = $(this);
-      const morphology = $Token.data("morphology");
-      const searchedFeature = topicData["feature"];
-      const actualFeature = morphology.charAt(topicData["feature-position"]);
+    const partOfSpeechArray = topicData["part-of-speech"].split(",");
+    partOfSpeechArray.forEach(function(partOfSpeech) {
+      $("[data-part-of-speech='" + partOfSpeech + "']").each(function() {
+        const $Token = $(this);
+        const morphology = $Token.data("morphology");
+        const searchedFeature = topicData["feature"];
+        const actualFeature = morphology.charAt(topicData["feature-position"]);
 
-      if(searchedFeature === actualFeature) {
-        $Token.addClass("hit");
-      }
+        if(searchedFeature === actualFeature) {
+          $Token.addClass("hit");
+        }
+      });
     });
   },
 
