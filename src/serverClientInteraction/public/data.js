@@ -15,5 +15,11 @@ UI.data = {
     "part-of-speech": "Ne,Nb",
     "feature": "v",
     "feature-position": 6
+  },
+
+  "nouns-dual": {
+    "part-of-speech": "Ne,Nb",
+    "feature": "d",
+    "feature-position": 1
   }
 };
