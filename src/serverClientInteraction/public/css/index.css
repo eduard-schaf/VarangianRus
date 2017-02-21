@@ -42,6 +42,7 @@ chronicle-entry {
 
 .ui-keyboard {
     border: thick double black;
+    background: white;
 }
 
 .ui-keyboard-accept {

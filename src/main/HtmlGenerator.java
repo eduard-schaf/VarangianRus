@@ -148,7 +148,7 @@ public class HtmlGenerator {
      * @param body the element with the tag name "body"
      */
     private void addDistractorsAndAnswers(Element body) throws IOException {
-        try (BufferedReader br = Files.newBufferedReader(Paths.get("src/data/distractors_alternatives.csv"))) {
+        try (BufferedReader br = Files.newBufferedReader(Paths.get("src/data/distractors_answers.csv"))) {
 
             while(br.ready()){
                 String line = br.readLine();
@@ -156,8 +156,6 @@ public class HtmlGenerator {
                 String[] lineParts = line.split(";");
 
                 String tokenId = lineParts[0];
-
-                String form = lineParts[1];
 
                 String distractorInfo = lineParts[5];
 
@@ -168,7 +166,7 @@ public class HtmlGenerator {
                 if(!tokenElements.isEmpty()){
                     addDistractors(distractorInfo, tokenElements);
 
-                    addAnswers(form, alternativesInfo, tokenElements);
+                    addAnswers(alternativesInfo, tokenElements);
                 }
             }
         }
@@ -202,17 +200,11 @@ public class HtmlGenerator {
     /**
      * Add answers to tokens in the html.
      *
-     * @param form the form of this token
      * @param alternativesInfo all info regarding the alternatives of this token
      * @param tokenElements the token in the html
      */
-    private void addAnswers(String form, String alternativesInfo, Elements tokenElements) {
-        if(!"no alternative".equals(alternativesInfo)){
-            tokenElements.first().attr("data-answers", alternativesInfo.replace(",", ";"));
-        }
-        else {
-            tokenElements.first().attr("data-answers", form);
-        }
+    private void addAnswers(String alternativesInfo, Elements tokenElements) {
+        tokenElements.first().attr("data-answers", alternativesInfo.replace(",", ";"));
     }
 
     /**
