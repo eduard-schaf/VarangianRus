@@ -9,5 +9,11 @@ UI.data = {
     "part-of-speech": "V-",
     "feature": "i",
     "feature-position": 2
+  },
+
+  "nouns-vocative": {
+    "part-of-speech": "Ne,Nb",
+    "feature": "v",
+    "feature-position": 6
   }
 };
