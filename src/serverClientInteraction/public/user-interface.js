@@ -47,6 +47,28 @@ const UI = {
   },
 
   /**
+   * Initialize the text menu handler.
+   */
+  initTopicMenu: function() {
+    $("#topic-menu").on("change", UI.selectSubtopicMenu);
+  },
+
+  /**
+   * Select the appropriate subtopic depending on topic selection.
+   */
+  selectSubtopicMenu: function() {
+    UI.hideSubtopicMenus();
+    $("#" + $(this).val() + "-menu").show();
+  },
+
+  /**
+   * Hide all subtopic menus.
+   */
+  hideSubtopicMenus: function() {
+    $(".subtopic").hide();
+  },
+
+  /**
    * Initialize the enhance button handler.
    */
   initEnhance: function() {
@@ -59,11 +81,12 @@ const UI = {
    */
   enhance: function() {
     const topic = $("#topic-menu").val();
+    const subtopic = $("#" + topic + "-menu").val();
     const activity = $("#activity-menu").val();
 
     UI.restore();
 
-    UI.markHits(UI.data[topic]);
+    UI.markHits(UI.data[topic + "-" + subtopic]);
 
     UI[activity].run();
 
@@ -112,7 +135,9 @@ const UI = {
    */
   initialUiState: function() {
     UI.hideExerciseCounter();
+    UI.hideSubtopicMenus();
     UI.hideRestore();
+    $("#unselected-menu").show();
     $(".menu").val("unselected");
   },
 

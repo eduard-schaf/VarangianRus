@@ -25,6 +25,8 @@ const IO = {
 
     UI.initTextMenu();
 
+    UI.initTopicMenu();
+
     UI.initEnhance();
 
     UI.initRestore();
