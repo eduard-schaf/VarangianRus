@@ -1,5 +1,7 @@
 UI["virtual-keyboard"] = {
   init: function() {
+    const $VirtualKeyboardArea = $("#virtual-keyboard-area");
+
     $(".input").keyboard({
 
       // set this to ISO 639-1 language code to override language set by the layout
@@ -15,7 +17,7 @@ UI["virtual-keyboard"] = {
       position : {
         // optional - null (attach to input/textarea) or a jQuery object
         // (attach elsewhere)
-        of : $("#virtual-keyboard-area"),
+        of : $VirtualKeyboardArea,
         my : "center top",
         at : "center top",
         // used when "usePreview" is false
@@ -176,7 +178,7 @@ UI["virtual-keyboard"] = {
 
       // Append the keyboard to a desired element. This can be a jQuery selector
       // string or object
-      appendTo : $("#virtual-keyboard-area"),
+      appendTo : $VirtualKeyboardArea,
 
       // If false, the shift key will remain active until the next key is (mouse)
       // clicked on; if true it will stay active until pressed again
@@ -232,68 +234,20 @@ UI["virtual-keyboard"] = {
 
       // *** Methods ***
       // Callbacks - add code inside any of these callback functions as desired
-      initialized   : function(e, keyboard, el) {},
-      beforeVisible : function(e, keyboard, el) {},
       visible       : function(e, keyboard, el) {
         keyboard.showKeySet("alt");
+
+        $(".ui-keyboard").draggable();
       },
-      beforeInsert  : function(e, keyboard, el, textToAdd) { return textToAdd; },
       change        : function(e, keyboard, el) {
         const code = e.which;
         if(code === 13) {
           keyboard.accept();
         }
       },
-      beforeClose   : function(e, keyboard, el, accepted) {},
       accepted      : function(e, keyboard, el) {
         UI.activityHelper.inputHandler(e);
       },
-      canceled      : function(e, keyboard, el) {},
-      restricted    : function(e, keyboard, el) {},
-      hidden        : function(e, keyboard, el) {},
-
-      // called instead of base.switchInput
-      switchInput : function(keyboard, goToNext, isAccepted) {},
-
-      // used if you want to create a custom layout or modify the built-in keyboard
-      create : function(keyboard) { return keyboard.buildKeyboard(); },
-
-      // build key callback (individual keys)
-      buildKey : function( keyboard, data ) {
-        /*
-         data = {
-         // READ ONLY
-         // true if key is an action key
-         isAction : [boolean],
-         // key class name suffix ( prefix = "ui-keyboard-" ); may include
-         // decimal ascii value of character
-         name     : [string],
-         // text inserted (non-action keys)
-         value    : [string],
-         // title attribute of key
-         title    : [string],
-         // keyaction name
-         action   : [string],
-         // HTML of the key; it includes a <span> wrapping the text
-         html     : [string],
-         // jQuery selector of key which is already appended to keyboard
-         // use to modify key HTML
-         $key     : [object]
-         }
-         */
-        return data;
-      },
-
-      // this callback is called just before the "beforeClose" to check the value
-      // if the value is valid, return true and the keyboard will continue as it
-      // should (close if not always open, etc)
-      // if the value is not value, return false and the clear the keyboard value
-      // ( like this "keyboard.$preview.val("");" ), if desired
-      // The validate function is called after each input, the "isClosing" value
-      // will be false; when the accept button is clicked, "isClosing" is true
-      validate : function(keyboard, value, isClosing) {
-        return true;
-      }
 
     })
     .previewKeyset({
