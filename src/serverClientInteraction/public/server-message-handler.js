@@ -27,6 +27,10 @@ const IO = {
 
     UI.initTopicMenu();
 
+    UI.initSubtopicMenus();
+
+    UI.initActivityMenu();
+
     UI.initEnhance();
 
     UI.initRestore();

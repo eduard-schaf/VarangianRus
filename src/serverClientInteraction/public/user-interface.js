@@ -47,7 +47,7 @@ const UI = {
   },
 
   /**
-   * Initialize the text menu handler.
+   * Initialize the topic menu handler.
    */
   initTopicMenu: function() {
     $("#topic-menu").on("change", UI.selectSubtopicMenu);
@@ -59,6 +59,7 @@ const UI = {
   selectSubtopicMenu: function() {
     UI.hideSubtopicMenus();
     $("#" + $(this).val() + "-menu").show();
+    UI.updateActivities();
   },
 
   /**
@@ -66,6 +67,113 @@ const UI = {
    */
   hideSubtopicMenus: function() {
     $(".subtopic").hide();
+  },
+
+  /**
+   * Initialize the subtopic menu handler.
+   */
+  initSubtopicMenus: function() {
+    $("#unselected-menu, " +
+      "#verbs-menu, " +
+      "#nouns-menu"
+    ).on("change", UI.updateActivities);
+  },
+
+  /**
+   * Update activities when the topic is changed. Enable activities available
+   * to the topic and disable the ones that aren't.
+   * Activity "Pick an Activity" is always enabled, selected and visible.
+   */
+  updateActivities: function() {
+    const topicData = UI.getTopicData();
+    const activitySelectors = UI.fillActivitySelectors();
+    const unselected = "unselected";
+    const undefinedType = "undefined";
+
+    activitySelectors[unselected].prop("disabled", false).prop("selected", true).show();
+
+    UI.hideEnhance();
+
+    if (
+      $(".menu").val() === unselected ||
+      typeof topicData === undefinedType) {
+      activitySelectors[unselected].next().hide();
+    }
+    else {
+      UI.enableAndShowActivities(topicData, activitySelectors);
+    }
+  },
+
+  /**
+   * Get the topic data from the topic selection.
+   *
+   * @returns the topic data
+   */
+  getTopicData: function() {
+    const topic = $("#topic-menu").val();
+    const subtopic = $("#" + topic + "-menu").val();
+    const topicSelection = topic + "-" + subtopic;
+    return UI.data[topicSelection];
+  },
+
+  /**
+   * Fill up the activity selectors, disable and hide all activities.
+   *
+   * @returns {Object} all activity selectors
+   */
+  fillActivitySelectors: function() {
+    const activitySelectors = {};
+
+    $("#activity-menu").find("option[value]").each(function() {
+      const currentActivity = $(this).val();
+      activitySelectors[currentActivity] =
+        $("#activity-" + currentActivity).prop("disabled", true).hide();
+    });
+    return activitySelectors;
+  },
+
+  /**
+   * Enable and show only activities that are available for the language and
+   * topic combination. Show the horizontal separator.
+   *
+   * @param {string} topicData the data for this topic
+   * @param {Array} activitySelectors the object of jquery selectors for each
+   * activity
+   */
+  enableAndShowActivities: function(topicData, activitySelectors) {
+    activitySelectors["unselected"].next().show();
+
+    const availableActivities = topicData["activities"].split(",");
+
+    availableActivities.forEach(function(activity) {
+      activitySelectors[activity].prop("disabled", false).show();
+    });
+  },
+
+  /**
+   * Initialize the activity menu handler.
+   */
+  initActivityMenu: function() {
+    $("#activity-menu").on("change", UI.toggleEnhance);
+  },
+
+  /**
+   * Toggle the enhance button depending on activity selection.
+   */
+  toggleEnhance: function() {
+    if($(this).val() === "unselected"){
+      UI.hideEnhance();
+    }
+    else{
+      $("#enhance").show();
+    }
+  },
+
+  /**
+   * Hide the enhance button.
+   */
+  hideEnhance: function() {
+    $("#enhance").hide();
   },
 
   /**
@@ -80,13 +188,12 @@ const UI = {
    * then running the selected topic.
    */
   enhance: function() {
-    const topic = $("#topic-menu").val();
-    const subtopic = $("#" + topic + "-menu").val();
+    const topicData = UI.getTopicData();
     const activity = $("#activity-menu").val();
 
     UI.restore();
 
-    UI.markHits(UI.data[topic + "-" + subtopic]);
+    UI.markHits(topicData);
 
     UI[activity].run();
 
@@ -136,7 +243,9 @@ const UI = {
   initialUiState: function() {
     UI.hideExerciseCounter();
     UI.hideSubtopicMenus();
+    UI.updateActivities();
     UI.hideRestore();
+
     $("#unselected-menu").show();
     $(".menu").val("unselected");
   },
