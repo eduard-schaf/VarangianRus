@@ -211,10 +211,16 @@ const UI = {
       $("[data-part-of-speech='" + partOfSpeech + "']").each(function() {
         const $Token = $(this);
         const morphology = $Token.data("morphology");
-        const searchedFeature = topicData["feature"];
-        const actualFeature = morphology.charAt(topicData["feature-position"]);
+        const searchedFeatures = topicData["features"];
+        const featurePositionArray = topicData["feature-positions"].split(",");
 
-        if(searchedFeature === actualFeature) {
+        let actualFeatures = "";
+
+        featurePositionArray.forEach(function(featurePosition) {
+          actualFeatures += morphology.charAt(featurePosition);
+        });
+
+        if(searchedFeatures === actualFeatures) {
           $Token.addClass("hit");
         }
       });
