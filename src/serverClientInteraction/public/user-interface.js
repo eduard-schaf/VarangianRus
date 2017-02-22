@@ -75,7 +75,8 @@ const UI = {
   initSubtopicMenus: function() {
     $("#unselected-menu, " +
       "#verbs-menu, " +
-      "#nouns-menu"
+      "#nouns-menu, " +
+      "#adjectives-menu"
     ).on("change", UI.updateActivities);
   },
 
