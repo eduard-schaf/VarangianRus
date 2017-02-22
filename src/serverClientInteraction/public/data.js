@@ -76,6 +76,13 @@ UI.data = {
     "feature-positions": "1,6"
   },
 
+  "nouns-dative-plural": {
+    "activities": "color,click,mc,cloze",
+    "part-of-speech": "Ne,Nb",
+    "features": "pd",
+    "feature-positions": "1,6"
+  },
+
   "nouns-vocative": {
     "activities": "color,click,mc",
     "part-of-speech": "Ne,Nb",
