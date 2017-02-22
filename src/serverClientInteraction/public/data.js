@@ -137,5 +137,12 @@ UI.data = {
     "part-of-speech": "Ne,Nb",
     "features": "d",
     "feature-positions": "1"
+  },
+
+  "adjectives-long-form": {
+    "activities": "color,click",
+    "part-of-speech": "A-",
+    "features": "w",
+    "feature-positions": "8"
   }
 };
