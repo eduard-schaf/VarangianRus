@@ -90,6 +90,13 @@ UI.data = {
     "feature-positions": "1,6"
   },
 
+  "nouns-accusative-plural": {
+    "activities": "color,click,mc,cloze",
+    "part-of-speech": "Ne,Nb",
+    "features": "pa",
+    "feature-positions": "1,6"
+  },
+
   "nouns-vocative": {
     "activities": "color,click,mc",
     "part-of-speech": "Ne,Nb",
