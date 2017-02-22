@@ -118,6 +118,13 @@ UI.data = {
     "feature-positions": "1,6"
   },
 
+  "nouns-locative-plural": {
+    "activities": "color,click,mc,cloze",
+    "part-of-speech": "Ne,Nb",
+    "features": "pl",
+    "feature-positions": "1,6"
+  },
+
   "nouns-vocative": {
     "activities": "color,click,mc",
     "part-of-speech": "Ne,Nb",
