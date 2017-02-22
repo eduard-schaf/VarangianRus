@@ -27,6 +27,13 @@ UI.data = {
     "feature-positions": "2,3,4"
   },
 
+  "verbs-passive-present-participles": {
+    "activities": "color,click,mc",
+    "part-of-speech": "V-",
+    "features": "ppp",
+    "feature-positions": "2,3,4"
+  },
+
   "nouns-nominative-singular": {
     "activities": "color,click,mc,cloze",
     "part-of-speech": "Ne,Nb",
