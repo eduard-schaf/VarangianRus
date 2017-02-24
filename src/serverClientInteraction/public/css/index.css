@@ -38,6 +38,12 @@
 
 chronicle-entry {
     display: block;
+    margin-bottom: 20px;
+}
+
+.sentence-style {
+    display: block;
+    margin-bottom: 10px;
 }
 
 .ui-keyboard {
