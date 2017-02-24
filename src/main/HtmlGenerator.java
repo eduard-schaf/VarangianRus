@@ -59,6 +59,10 @@ public class HtmlGenerator {
 
         addDistractorsAndAnswers(body);
 
+        if("The tale of Igor’s campaign".equals(title)){
+            addSentenceStyleClass(body);
+        }
+
         String generatedHtml = body.html();
 
         writeHtmlToFile(title, generatedHtml);
@@ -205,6 +209,15 @@ public class HtmlGenerator {
      */
     private void addAnswers(String alternativesInfo, Elements tokenElements) {
         tokenElements.first().attr("data-answers", alternativesInfo.replace(",", ";"));
+    }
+
+    /**
+     * Add the class "sentence-style" to all sentences.
+     *
+     * @param body the element with the tag name "body"
+     */
+    private void addSentenceStyleClass(Element body) {
+        body.select("sentence").addClass("sentence-style");
     }
 
     /**

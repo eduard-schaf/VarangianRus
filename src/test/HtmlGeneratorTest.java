@@ -265,6 +265,28 @@ public class HtmlGeneratorTest {
     }
 
     @Test
+    public void sentencesWithSentenceStyleClass() throws Exception {
+
+        Text text = DomParser.createTextFromXml("spi.xml");
+
+        HtmlGenerator htmlGenerator = new HtmlGenerator(text);
+
+        String html = htmlGenerator.convertTextToHtml();
+
+        Document document = Jsoup.parse(html);
+
+        boolean result = document
+                .select("sentence")
+                .hasClass("sentence-style");
+
+        assertEquals(
+                "Should have the matching class",
+                true,
+                result
+        );
+    }
+
+    @Test
     public void writeHtmlToFile() throws Exception {
         Path dataFolder = Paths.get("src/data/");
 
