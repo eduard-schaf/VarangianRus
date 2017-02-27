@@ -261,7 +261,7 @@ UI.data = {
   "adjectives-locative-singular-feminine": {
     "activities": "color,click,mc",
     "part-of-speech": "A-",
-    "features": "sml",
+    "features": "sfl",
     "feature-positions": "1,5,6"
   },
 
