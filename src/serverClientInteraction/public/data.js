@@ -311,21 +311,24 @@ UI.data = {
     "activities": "color,click",
     "part-of-speech": "Pd",
     "features": "m",
-    "feature-positions": "5"
+    "feature-positions": "5",
+    "exclude": "lemma:самъ"
   },
 
   "pronouns-demonstrative-feminine": {
     "activities": "color,click",
     "part-of-speech": "Pd",
     "features": "f",
-    "feature-positions": "5"
+    "feature-positions": "5",
+    "exclude": "lemma:самъ"
   },
 
   "pronouns-demonstrative-neuter": {
     "activities": "color,click",
     "part-of-speech": "Pd",
     "features": "n",
-    "feature-positions": "5"
+    "feature-positions": "5",
+    "exclude": "lemma:самъ"
   },
 
   "pronouns-relative": {
