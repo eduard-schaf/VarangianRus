@@ -331,5 +331,7 @@ UI.data = {
   "pronouns-relative": {
     "activities": "color,click",
     "part-of-speech": "Pr",
+    "features": "",
+    "feature-positions": ""
   }
 };
