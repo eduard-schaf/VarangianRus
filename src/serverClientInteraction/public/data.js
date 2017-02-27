@@ -324,7 +324,7 @@ UI.data = {
   "pronouns-demonstrative-neuter": {
     "activities": "color,click",
     "part-of-speech": "Pd",
-    "features": "d",
+    "features": "n",
     "feature-positions": "5"
   },
 
