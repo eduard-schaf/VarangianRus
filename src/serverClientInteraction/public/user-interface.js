@@ -76,7 +76,8 @@ const UI = {
     $("#unselected-menu, " +
       "#verbs-menu, " +
       "#nouns-menu, " +
-      "#adjectives-menu"
+      "#adjectives-menu, " +
+      "#pronouns-menu"
     ).on("change", UI.updateActivities);
   },
 
