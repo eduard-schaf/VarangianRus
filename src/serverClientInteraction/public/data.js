@@ -272,63 +272,63 @@ UI.data = {
     "feature-positions": "1,6"
   },
 
-  "personal-pronouns-third-singular-masculine": {
+  "pronouns-personal-third-singular-masculine": {
     "activities": "color,click,mc",
     "part-of-speech": "Pp",
     "features": "3sm",
     "feature-positions": "0,1,5"
   },
 
-  "personal-pronouns-third-singular-feminine": {
+  "pronouns-personal-third-singular-feminine": {
     "activities": "color,click,mc",
     "part-of-speech": "Pp",
     "features": "3sf",
     "feature-positions": "0,1,5"
   },
 
-  "personal-pronouns-third-singular-neuter": {
+  "pronouns-personal-third-singular-neuter": {
     "activities": "color,click,mc",
     "part-of-speech": "Pp",
     "features": "3sn",
     "feature-positions": "0,1,5"
   },
 
-  "personal-pronouns-third-dual": {
+  "pronouns-personal-third-dual": {
     "activities": "color,click,mc",
     "part-of-speech": "Pp",
     "features": "3d",
     "feature-positions": "0,1"
   },
 
-  "personal-pronouns-third-plural": {
+  "pronouns-personal-third-plural": {
     "activities": "color,click,mc",
     "part-of-speech": "Pp",
     "features": "3p",
     "feature-positions": "0,1"
   },
 
-  "demonstrative-pronouns-masculine": {
+  "pronouns-demonstrative-masculine": {
     "activities": "color,click",
     "part-of-speech": "Pd",
     "features": "m",
     "feature-positions": "5"
   },
 
-  "demonstrative-pronouns-feminine": {
+  "pronouns-demonstrative-feminine": {
     "activities": "color,click",
     "part-of-speech": "Pd",
     "features": "f",
     "feature-positions": "5"
   },
 
-  "demonstrative-pronouns-neuter": {
+  "pronouns-demonstrative-neuter": {
     "activities": "color,click",
     "part-of-speech": "Pd",
     "features": "d",
     "feature-positions": "5"
   },
 
-  "relative-pronouns": {
+  "pronouns-relative": {
     "activities": "color,click",
     "part-of-speech": "Pr",
   }
