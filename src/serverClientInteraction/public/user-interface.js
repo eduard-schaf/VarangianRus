@@ -218,7 +218,9 @@ const UI = {
         let actualFeatures = "";
 
         featurePositionArray.forEach(function(featurePosition) {
-          actualFeatures += morphology.charAt(featurePosition);
+          if("" !== featurePosition){
+            actualFeatures += morphology.charAt(featurePosition);
+          }
         });
 
         if(searchedFeatures === actualFeatures) {
