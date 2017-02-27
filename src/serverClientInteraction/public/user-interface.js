@@ -112,8 +112,7 @@ const UI = {
    */
   getTopicData: function() {
     const topic = $("#topic-menu").val();
-    const subtopic = $("#" + topic + "-menu").val();
-    const topicSelection = topic + "-" + subtopic;
+    const topicSelection = $("#" + topic + "-menu").val();
     return UI.data[topicSelection];
   },
 
