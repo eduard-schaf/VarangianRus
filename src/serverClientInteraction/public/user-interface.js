@@ -76,7 +76,8 @@ const UI = {
     $("#unselected-menu, " +
       "#verbs-menu, " +
       "#nouns-menu, " +
-      "#adjectives-menu"
+      "#adjectives-menu, " +
+      "#pronouns-menu"
     ).on("change", UI.updateActivities);
   },
 
@@ -112,8 +113,7 @@ const UI = {
    */
   getTopicData: function() {
     const topic = $("#topic-menu").val();
-    const subtopic = $("#" + topic + "-menu").val();
-    const topicSelection = topic + "-" + subtopic;
+    const topicSelection = $("#" + topic + "-menu").val();
     return UI.data[topicSelection];
   },
 
@@ -211,6 +211,19 @@ const UI = {
     partOfSpeechArray.forEach(function(partOfSpeech) {
       $("[data-part-of-speech='" + partOfSpeech + "']").each(function() {
         const $Token = $(this);
+        const excludeData = topicData["exclude"];
+
+        if(undefined !== excludeData){
+          const excludeArray = excludeData.split(":");
+          const excludeAttribute = excludeArray[0];
+          const excludeAttributeValue = excludeArray[1];
+          const actualAttributeValue = $Token.data(excludeAttribute);
+
+          if(excludeAttributeValue === actualAttributeValue){
+            return;
+          }
+        }
+
         const morphology = $Token.data("morphology");
         const searchedFeatures = topicData["features"];
         const featurePositionArray = topicData["feature-positions"].split(",");
@@ -218,7 +231,9 @@ const UI = {
         let actualFeatures = "";
 
         featurePositionArray.forEach(function(featurePosition) {
-          actualFeatures += morphology.charAt(featurePosition);
+          if("" !== featurePosition){
+            actualFeatures += morphology.charAt(featurePosition);
+          }
         });
 
         if(searchedFeatures === actualFeatures) {

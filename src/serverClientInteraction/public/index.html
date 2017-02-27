@@ -20,6 +20,7 @@
         <option id="verbs" value="verbs">Verbs</option>
         <option id="nouns" value="nouns">Nouns</option>
         <option id="adjectives" value="adjectives">Adjectives</option>
+        <option id="pronouns" value="pronouns">Pronouns</option>
     </select>
     <select id="unselected-menu" class="menu subtopic">
         <option id="subtopic-unselected" value="unselected" selected>Pick a Subtopic</option>
@@ -27,35 +28,66 @@
     <select id="verbs-menu" class="menu subtopic">
         <option id="verbs-unselected" value="unselected" selected>Pick a Subtopic</option>
         <option class="separator" disabled>──────────</option>
-        <option id="aorist-tense" value="aorist-tense">Aorist Tense</option>
-        <option id="imperfect-tense" value="imperfect-tense">Imperfect Tense</option>
-        <option id="active-present-participles" value="active-present-participles">Active Present Participles</option>
-        <option id="active-past-participles" value="active-past-participles">Active Past Participles</option>
-        <option id="passive-present-participles" value="passive-present-participles">Passive Present Participles</option>
-        <option id="passive-past-participles" value="passive-past-participles">Passive Past Participles</option>
+        <option id="verbs-aorist-tense" value="verbs-aorist-tense">Aorist Tense</option>
+        <option id="verbs-imperfect-tense" value="verbs-imperfect-tense">Imperfect Tense</option>
+        <option id="verbs-active-present-participles" value="verbs-active-present-participles">Active Present Participles</option>
+        <option id="verbs-active-past-participles" value="verbs-active-past-participles">Active Past Participles</option>
+        <option id="verbs-passive-present-participles" value="verbs-passive-present-participles">Passive Present Participles</option>
+        <option id="verbs-passive-past-participles" value="verbs-passive-past-participles">Passive Past Participles</option>
     </select>
     <select id="nouns-menu" class="menu subtopic">
         <option id="nouns-unselected" value="unselected" selected>Pick a Subtopic</option>
         <option class="separator" disabled>──────────</option>
-        <option id="nominative-singular" value="nominative-singular">Nominative Singular</option>
-        <option id="nominative-plural" value="nominative-plural">Nominative Plural</option>
-        <option id="genitive-singular" value="genitive-singular">Genitive Singular</option>
-        <option id="genitive-plural" value="genitive-plural">Genitive Plural</option>
-        <option id="dative-singular" value="dative-singular">Dative Singular</option>
-        <option id="dative-plural" value="dative-plural">Dative Plural</option>
-        <option id="accusative-singular" value="accusative-singular">Accusative Singular</option>
-        <option id="accusative-plural" value="accusative-plural">Accusative Plural</option>
-        <option id="instrumental-singular" value="instrumental-singular">Instrumental Singular</option>
-        <option id="instrumental-plural" value="instrumental-plural">Instrumental Plural</option>
-        <option id="locative-singular" value="locative-singular">Locative Singular</option>
-        <option id="locative-plural" value="locative-plural">Locative Plural</option>
-        <option id="vocative" value="vocative">Vocative</option>
-        <option id="dual" value="dual">Dual</option>
+        <option id="nouns-nominative-singular" value="nouns-nominative-singular">Nominative Singular</option>
+        <option id="nouns-nominative-plural" value="nouns-nominative-plural">Nominative Plural</option>
+        <option id="nouns-genitive-singular" value="nouns-genitive-singular">Genitive Singular</option>
+        <option id="nouns-genitive-plural" value="nouns-genitive-plural">Genitive Plural</option>
+        <option id="nouns-dative-singular" value="nouns-dative-singular">Dative Singular</option>
+        <option id="nouns-dative-plural" value="nouns-dative-plural">Dative Plural</option>
+        <option id="nouns-accusative-singular" value="nouns-accusative-singular">Accusative Singular</option>
+        <option id="nouns-accusative-plural" value="nouns-accusative-plural">Accusative Plural</option>
+        <option id="nouns-instrumental-singular" value="nouns-instrumental-singular">Instrumental Singular</option>
+        <option id="nouns-instrumental-plural" value="nouns-instrumental-plural">Instrumental Plural</option>
+        <option id="nouns-locative-singular" value="nouns-locative-singular">Locative Singular</option>
+        <option id="nouns-locative-plural" value="nouns-locative-plural">Locative Plural</option>
+        <option id="nouns-vocative" value="nouns-vocative">Vocative</option>
+        <option id="nouns-dual" value="nouns-dual">Dual</option>
     </select>
     <select id="adjectives-menu" class="menu subtopic">
         <option id="adjectives-unselected" value="unselected" selected>Pick a Subtopic</option>
         <option class="separator" disabled>──────────</option>
-        <option id="long-form" value="long-form">Long Form</option>
+        <option id="adjectives-long-form" value="adjectives-long-form">Long Form</option>
+        <option id="adjectives-nominative-singular-masculine" value="adjectives-nominative-singular-masculine">Nominative Singular Masculine</option>
+        <option id="adjectives-nominative-singular-feminine" value="adjectives-nominative-singular-feminine">Nominative Singular Feminine</option>
+        <option id="adjectives-nominative-plural" value="adjectives-nominative-plural">Nominative Plural</option>
+        <option id="adjectives-genitive-singular-masculine" value="adjectives-genitive-singular-masculine">Genitive Singular Masculine</option>
+        <option id="adjectives-genitive-singular-feminine" value="adjectives-genitive-singular-feminine">Genitive Singular Feminine</option>
+        <option id="adjectives-genitive-plural" value="adjectives-genitive-plural">Genitive Plural</option>
+        <option id="adjectives-dative-singular-masculine" value="adjectives-dative-singular-masculine">Dative Singular Masculine</option>
+        <option id="adjectives-dative-singular-feminine" value="adjectives-dative-singular-feminine">Dative Singular Feminine</option>
+        <option id="adjectives-dative-plural" value="adjectives-dative-plural">Dative Plural</option>
+        <option id="adjectives-accusative-singular-masculine" value="adjectives-accusative-singular-masculine">Accusative Singular Masculine</option>
+        <option id="adjectives-accusative-singular-feminine" value="adjectives-accusative-singular-feminine">Accusative Singular Feminine</option>
+        <option id="adjectives-accusative-plural" value="adjectives-accusative-plural">Accusative Plural</option>
+        <option id="adjectives-instrumental-singular-masculine" value="adjectives-instrumental-singular-masculine">Instrumental Singular Masculine</option>
+        <option id="adjectives-instrumental-singular-feminine" value="adjectives-instrumental-singular-feminine">Instrumental Singular Feminine</option>
+        <option id="adjectives-instrumental-plural" value="adjectives-instrumental-plural">Instrumental Plural</option>
+        <option id="adjectives-locative-singular-masculine" value="adjectives-locative-singular-masculine">Locative Singular Masculine</option>
+        <option id="adjectives-locative-singular-feminine" value="adjectives-locative-singular-feminine">Locative Singular Feminine</option>
+        <option id="adjectives-locative-plural" value="adjectives-locative-plural">Locative Plural</option>
+    </select>
+    <select id="pronouns-menu" class="menu subtopic">
+        <option id="pronouns-unselected" value="unselected" selected>Pick a Subtopic</option>
+        <option class="separator" disabled>──────────</option>
+        <option id="pronouns-personal-third-singular-masculine" value="pronouns-personal-third-singular-masculine">Personal Third Singular Masculine</option>
+        <option id="pronouns-personal-third-singular-feminine" value="pronouns-personal-third-singular-feminine">Personal Third Singular Feminine</option>
+        <option id="pronouns-personal-third-singular-neuter" value="pronouns-personal-third-singular-neuter">Personal Third Singular Neuter</option>
+        <option id="pronouns-personal-third-dual" value="pronouns-personal-third-dual">Personal Third Dual</option>
+        <option id="pronouns-personal-third-plural" value="pronouns-personal-third-plural">Personal Third Plural</option>
+        <option id="pronouns-demonstrative-masculine" value="pronouns-demonstrative-masculine">Demonstrative Masculine</option>
+        <option id="pronouns-demonstrative-feminine" value="pronouns-demonstrative-feminine">Demonstrative Feminine</option>
+        <option id="pronouns-demonstrative-neuter" value="pronouns-demonstrative-neuter">Demonstrative Neuter</option>
+        <option id="pronouns-relative" value="pronouns-relative">Relative</option>
     </select>
     <select id="activity-menu" class="menu">
         <option id="activity-unselected" value="unselected" selected>Pick an Activity</option>

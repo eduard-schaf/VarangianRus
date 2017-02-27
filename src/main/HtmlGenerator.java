@@ -228,7 +228,9 @@ public class HtmlGenerator {
      * @throws IOException fired when the file location does not exist
      */
     private void writeHtmlToFile(String title, String html) throws IOException {
-        fileName = title.replace(",", "").replace(" ", "-");
+        fileName = title
+                .replaceAll("[,'’]", "")
+                .replace(" ", "-");
 
         String fileLocation = "src/serverClientInteraction/texts/" + fileName + ".html";
 
