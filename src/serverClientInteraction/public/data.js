@@ -144,5 +144,12 @@ UI.data = {
     "part-of-speech": "A-",
     "features": "w",
     "feature-positions": "8"
+  },
+
+  "adjectives-nominative-singular-masculine": {
+    "activities": "color,click,mc",
+    "part-of-speech": "A-",
+    "features": "smn",
+    "feature-positions": "1,5,6"
   }
 };
